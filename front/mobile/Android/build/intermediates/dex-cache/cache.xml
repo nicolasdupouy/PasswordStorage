@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/nicolasdupouy/.android/build-cache/7c64aebfa105ef6eed63c2b7d958296b9c0406b6/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="/Users/nicolasdupouy/Documents/Developments/git-repositories/ANDROID_PROJECTS/PasswordStorage/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_10b6c53d1a06678025fdd55c25a58a13675e1909/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/nicolasdupouy/Documents/Developments/git-repositories/ANDROID_PROJECTS/PasswordStorage/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8c8d8e918e1894b76b0904de5ba5690ff30f20d0">
+        <dex dex="/Users/nicolasdupouy/Documents/Developments/git-repositories/ANDROID_PROJECTS/PasswordStorage/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_7db1f77a998c019c713e58419bd1c9e375267b70/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nicolasdupouy/.android/build-cache/7fb54e1d483039874484251615c4fdce3c1a6da0/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="/Users/nicolasdupouy/Documents/Developments/git-repositories/ANDROID_PROJECTS/PasswordStorage/app/build/intermediates/pre-dexed/debug/classes_a34892e04d8d75649f5954a51586b2c1b2d4401f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nicolasdupouy/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="/Users/nicolasdupouy/Documents/Developments/git-repositories/ANDROID_PROJECTS/PasswordStorage/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.1_934b2adbc2237f63404b1d02032a3ea4267099e8.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/nicolasdupouy/Documents/Developments/git-repositories/ANDROID_PROJECTS/PasswordStorage/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/nicolasdupouy/Documents/Developments/git-repositories/ANDROID_PROJECTS/PasswordStorage/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_d0f4bd9397366630df2045ebc285d8ad820cc216/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nicolasdupouy/.android/build-cache/7fb54e1d483039874484251615c4fdce3c1a6da0/output/jars/libs/internal_impl-22.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="/Users/nicolasdupouy/Documents/Developments/git-repositories/ANDROID_PROJECTS/PasswordStorage/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.1_0d2b5267964c4e6cbd71ad3694b40d1e9f320da3.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/nicolasdupouy/.android/build-cache/7fb54e1d483039874484251615c4fdce3c1a6da0/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="/Users/nicolasdupouy/Documents/Developments/git-repositories/ANDROID_PROJECTS/PasswordStorage/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a34892e04d8d75649f5954a51586b2c1b2d4401f/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nicolasdupouy/.android/build-cache/6c2ad8b834cc343200cb7d0a6c4cde383a98486e/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="1821601ddbec5ff125653097812823388700af74">
+        <dex dex="/Users/nicolasdupouy/Documents/Developments/git-repositories/ANDROID_PROJECTS/PasswordStorage/app/build/intermediates/pre-dexed/debug/classes_3addb6a8e71a420d55504691bb5e541a569cb0d8.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/nicolasdupouy/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
+        <dex dex="/Users/nicolasdupouy/Documents/Developments/git-repositories/ANDROID_PROJECTS/PasswordStorage/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-22.2.1_934b2adbc2237f63404b1d02032a3ea4267099e8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/nicolasdupouy/.android/build-cache/7fb54e1d483039874484251615c4fdce3c1a6da0/output/jars/libs/internal_impl-22.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
+        <dex dex="/Users/nicolasdupouy/Documents/Developments/git-repositories/ANDROID_PROJECTS/PasswordStorage/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-22.2.1_0d2b5267964c4e6cbd71ad3694b40d1e9f320da3/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/nicolasdupouy/.android/build-cache/7c64aebfa105ef6eed63c2b7d958296b9c0406b6/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="/Users/nicolasdupouy/Documents/Developments/git-repositories/ANDROID_PROJECTS/PasswordStorage/app/build/intermediates/pre-dexed/debug/classes_10b6c53d1a06678025fdd55c25a58a13675e1909.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/nicolasdupouy/.android/build-cache/6c2ad8b834cc343200cb7d0a6c4cde383a98486e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1821601ddbec5ff125653097812823388700af74">
+        <dex dex="/Users/nicolasdupouy/Documents/Developments/git-repositories/ANDROID_PROJECTS/PasswordStorage/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_3addb6a8e71a420d55504691bb5e541a569cb0d8/classes.dex" />
+    </item>
+
+</items>
