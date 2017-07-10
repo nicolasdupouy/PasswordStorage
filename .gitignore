@@ -1,4 +1,15 @@
-# Generic files to ignore :
-# -------------------------
 # - Apple temp
 .DS_Store
+
+# - Android Studio (IntelliJ IDEA)
+.idea/
+*.iml
+
+# - Gradle
+.gradle
+
+# - Android
+build/
+local.properties
+captures
+.externalNativeBuild
