@@ -1,4 +1,4 @@
-package com.ndu.passwordstorage;
+package com.ndu.passwordstorage.screen;
 
 import android.app.ListActivity;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.ndu.passwordstorage.R;
 
 import java.util.Arrays;
 import java.util.List;
