@@ -9,20 +9,33 @@ import android.widget.ListView;
 
 import com.ndu.passwordstorage.R;
 import com.ndu.passwordstorage.data.PasswordDatas;
-import com.ndu.passwordstorage.data.impl.PasswordDatasImpl;
+import com.ndu.passwordstorage.di.AppComponent;
+import com.ndu.passwordstorage.di.AppModule;
+import com.ndu.passwordstorage.di.DaggerAppComponent;
 import com.ndu.passwordstorage.model.PasswordEntry;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class DisplayListActivity extends ListActivity {
 
-    private static final PasswordDatas passwordDatas = new PasswordDatasImpl();
+    @Inject
+    PasswordDatas passwordDatas;
+
+    private AppComponent appComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        appComponent = DaggerAppComponent
+                .builder()
+                .appModule(new AppModule())
+                .build();
+        passwordDatas = appComponent.providePasswordDatas();
+
         setContentView(R.layout.activity_display_list);
 
         ListView listView = getListView();
