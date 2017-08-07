@@ -10,10 +10,10 @@ import dagger.Provides;
 
 
 @Module
-public class AppModule implements AppComponent {
+public abstract class AppModule {
 
-    @Override
-    @Provides @Singleton
+    @Provides
+    @Singleton
     public PasswordDatas providePasswordDatas() {
         return new PasswordDatasImpl();
     }
