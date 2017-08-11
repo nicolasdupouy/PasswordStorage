@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.ndu.passwordstorage.MainApp;
 import com.ndu.passwordstorage.R;
 import com.ndu.passwordstorage.data.impl.PasswordDatasImpl;
+import com.ndu.passwordstorage.di.Injectable;
 import com.ndu.passwordstorage.model.PasswordEntry;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class DisplayListActivity extends ListActivity {
+public class DisplayListActivity extends ListActivity implements Injectable {
 
     @Inject
     PasswordDatasImpl passwordDatas;
@@ -25,8 +26,7 @@ public class DisplayListActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        ((MainApp) getApplication()).getAppComponent().inject(this);
+        injectMe();
 
         setContentView(R.layout.activity_display_list);
 
@@ -46,5 +46,10 @@ public class DisplayListActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         Log.v("TEST", "position = " + position + " / id = " + id);
+    }
+
+    @Override
+    public void injectMe() {
+        ((MainApp) getApplication()).getAppComponent().inject(this);
     }
 }
