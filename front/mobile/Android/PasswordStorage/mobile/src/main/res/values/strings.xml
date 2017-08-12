@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">PasswordStorage</string>
     <string name="title_activity_memo">MemoActivity</string>
+
+    <string name="site">Site</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
 </resources>

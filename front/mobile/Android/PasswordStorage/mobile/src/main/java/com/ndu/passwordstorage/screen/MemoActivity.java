@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 
 import com.ndu.passwordstorage.R;
 
@@ -18,9 +19,24 @@ public class MemoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo);
+
+        setFields();
+        setToolbar();
+        setCreateAction();
+    }
+
+    private void setFields() {
+        EditText site = (EditText)findViewById(R.id.site);
+        EditText login = (EditText)findViewById(R.id.login);
+        EditText password = (EditText)findViewById(R.id.password);
+    }
+
+    private void setToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
 
+    private void setCreateAction() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
