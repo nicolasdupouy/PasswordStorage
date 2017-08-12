@@ -11,6 +11,9 @@ import com.ndu.passwordstorage.R;
 
 public class MemoActivity extends AppCompatActivity {
 
+    public static final int DISPLAY_MEMO = 1;
+    public static final int CREATE_MEMO = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,6 +1,7 @@
 package com.ndu.passwordstorage.screen;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,7 +35,7 @@ public class DisplayListActivity extends ListActivity implements Injectable {
 
         List<PasswordEntry> passwordEntries = passwordDatas.readDatas();
         List<String> names = new ArrayList<>();
-        for (PasswordEntry entry: passwordEntries) {
+        for (PasswordEntry entry : passwordEntries) {
             names.add(entry.getLogin());
         }
 
@@ -45,7 +46,19 @@ public class DisplayListActivity extends ListActivity implements Injectable {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Log.v("TEST", "position = " + position + " / id = " + id);
+        displayMemo();
+    }
+
+    private void displayMemo() {
+        Intent memoActivityIntent = new Intent(this, MemoActivity.class);
+        startActivityForResult(memoActivityIntent, MemoActivity.DISPLAY_MEMO);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MemoActivity.DISPLAY_MEMO) {
+            Log.v("TODO", "Return is not exploited yet.");
+        }
     }
 
     @Override
