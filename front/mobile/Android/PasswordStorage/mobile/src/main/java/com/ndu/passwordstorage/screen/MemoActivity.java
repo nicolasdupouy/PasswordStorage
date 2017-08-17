@@ -10,34 +10,35 @@ import android.widget.EditText;
 
 import com.ndu.passwordstorage.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MemoActivity extends AppCompatActivity {
 
     public static final int DISPLAY_MEMO = 1;
     public static final int CREATE_MEMO = 1;
 
+    @Bind(R.id.site) EditText site;
+    @Bind(R.id.login) EditText login;
+    @Bind(R.id.password) EditText password;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.fab) FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo);
+        ButterKnife.bind(this);
 
-        setFields();
         setToolbar();
         setCreateAction();
     }
 
-    private void setFields() {
-        EditText site = (EditText)findViewById(R.id.site);
-        EditText login = (EditText)findViewById(R.id.login);
-        EditText password = (EditText)findViewById(R.id.password);
-    }
-
     private void setToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
     private void setCreateAction() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,4 +48,9 @@ public class MemoActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ButterKnife.unbind(this);
+    }
 }

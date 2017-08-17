@@ -36,4 +36,6 @@ dependencies {
     compile 'com.google.dagger:dagger:2.11'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
     provided 'javax.annotation:jsr250-api:1.0'
+    // Binding
+    compile group: 'com.jakewharton', name: 'butterknife', version: '7.0.1'
 }
