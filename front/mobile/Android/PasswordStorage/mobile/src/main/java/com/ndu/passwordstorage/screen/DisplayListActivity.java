@@ -24,6 +24,8 @@ public class DisplayListActivity extends ListActivity implements Injectable {
     @Inject
     PasswordDatasImpl passwordDatas;
 
+    private List<PasswordEntry> passwordEntries;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +35,9 @@ public class DisplayListActivity extends ListActivity implements Injectable {
 
         ListView listView = getListView();
 
-        List<PasswordEntry> passwordEntries = passwordDatas.readDatas();
+        this.passwordEntries = passwordDatas.readDatas();
         List<String> names = new ArrayList<>();
-        for (PasswordEntry entry : passwordEntries) {
+        for (PasswordEntry entry : this.passwordEntries) {
             names.add(entry.getLogin());
         }
 
@@ -46,11 +48,18 @@ public class DisplayListActivity extends ListActivity implements Injectable {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        displayMemo();
+        displayMemo(position);
     }
 
-    private void displayMemo() {
+    private void displayMemo(int position) {
         Intent memoActivityIntent = new Intent(this, MemoActivity.class);
+
+        PasswordEntry passwordEntry = this.passwordEntries.get(position);
+        memoActivityIntent.putExtra(PasswordEntry.BUNDLE, passwordEntry.createBundle());
+
+        Bundle bundleExtra = memoActivityIntent.getBundleExtra(PasswordEntry.BUNDLE);
+        PasswordEntry pe = PasswordEntry.readFromBundle(bundleExtra);
+
         startActivityForResult(memoActivityIntent, MemoActivity.DISPLAY_MEMO);
     }
 
