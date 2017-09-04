@@ -5,4 +5,7 @@
     <string name="site">Site</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="update">Update</string>
 </resources>

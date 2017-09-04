@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 public class MemoActivity extends AppCompatActivity {
 
     public static final int DISPLAY_MEMO = 1;
-    public static final int CREATE_MEMO = 1;
+    public static final int CREATE_MEMO = 2;
 
     @Bind(R.id.site) EditText site;
     @Bind(R.id.login) EditText login;
@@ -63,5 +63,13 @@ public class MemoActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         ButterKnife.unbind(this);
+    }
+
+    public void cancel(View view) {
+
+    }
+
+    public void update(View view) {
+
     }
 }
