@@ -33,6 +33,8 @@ public class MemoActivity extends AppCompatActivity {
     @Bind(R.id.fab)
     FloatingActionButton fab;
 
+    private PasswordEntry passwordEntry;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +48,11 @@ public class MemoActivity extends AppCompatActivity {
 
     private void readInfos() {
         Intent intent = this.getIntent();
-        PasswordEntry pe = PasswordEntry.readInfos(intent);
+        passwordEntry = PasswordEntry.readInfos(intent);
 
-        this.site.setText(pe.getSite(), TextView.BufferType.EDITABLE);
-        this.login.setText(pe.getLogin(), TextView.BufferType.EDITABLE);
-        this.password.setText(pe.getPassword(), TextView.BufferType.EDITABLE);
+        this.site.setText(passwordEntry.getSite(), TextView.BufferType.EDITABLE);
+        this.login.setText(passwordEntry.getLogin(), TextView.BufferType.EDITABLE);
+        this.password.setText(passwordEntry.getPassword(), TextView.BufferType.EDITABLE);
     }
 
     private void setToolbar() {
@@ -79,14 +81,14 @@ public class MemoActivity extends AppCompatActivity {
     }
 
     public void update(View view) {
-        PasswordEntry passwordEntry = readMemo();
+        saveMemo();
         Intent intent = passwordEntry.giveInfos();
         setResult(Activity.RESULT_OK, intent);
         finish();
     }
 
-    private PasswordEntry readMemo() {
-        return PasswordEntry.makeNew(
+    private void saveMemo() {
+        passwordEntry.update(
                 this.site.getText().toString(),
                 this.login.getText().toString(),
                 this.password.getText().toString());

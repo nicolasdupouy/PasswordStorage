@@ -6,6 +6,7 @@ import android.os.Bundle;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 public class PasswordEntry {
     private static final String KEY = "key";
@@ -17,6 +18,8 @@ public class PasswordEntry {
     private String site;
     private String login;
     private String password;
+
+    private static Random random = new Random(1);
 
     private PasswordEntry() {}
 
@@ -40,10 +43,10 @@ public class PasswordEntry {
 
         String pattern = "yyyy-MM-dd HH:mm:ss Z";
         SimpleDateFormat formatter = new SimpleDateFormat(pattern, locale);
-        return formatter.format(new Date());
+        return formatter.format(new Date()) + random.nextInt();
     }
 
-    private void update(String site, String login, String password) {
+    public void update(String site, String login, String password) {
         this.site = site;
         this.login = login;
         this.password = password;
@@ -71,6 +74,10 @@ public class PasswordEntry {
         passwordEntry.password = intent.getStringExtra(PASSWORD);
 
         return passwordEntry;
+    }
+
+    public String getKey() {
+        return key;
     }
 
     public String getSite() {
