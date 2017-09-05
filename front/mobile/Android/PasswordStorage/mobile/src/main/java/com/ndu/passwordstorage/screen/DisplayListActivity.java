@@ -26,8 +26,6 @@ public class DisplayListActivity extends ListActivity implements Injectable {
     @Inject
     PasswordDatasImpl passwordDatas;
 
-    private List<PasswordEntry> passwordEntries;
-
     @Override
     public void injectMe() {
         ((MainApp) getApplication()).getAppComponent().inject(this);
@@ -39,8 +37,11 @@ public class DisplayListActivity extends ListActivity implements Injectable {
         injectMe();
 
         setContentView(R.layout.activity_display_list);
-        ListView listView = getListView();
+        refreshDisplay();
+    }
 
+    private void refreshDisplay() {
+        ListView listView = getListView();
         List<String> names = fillMemoList();
         ArrayAdapter<String> namesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
         listView.setAdapter(namesAdapter);
@@ -48,9 +49,9 @@ public class DisplayListActivity extends ListActivity implements Injectable {
 
     @NonNull
     private List<String> fillMemoList() {
-        this.passwordEntries = passwordDatas.readDatas();
+        List<PasswordEntry> passwordEntries = passwordDatas.readDatas();
         List<String> names = new ArrayList<>();
-        for (PasswordEntry entry : this.passwordEntries) {
+        for (PasswordEntry entry : passwordEntries) {
             names.add(entry.getSite() + "/"
                     + entry.getLogin() + "/"
                     + entry.getPassword());
@@ -67,7 +68,8 @@ public class DisplayListActivity extends ListActivity implements Injectable {
     private void displayMemo(int position) {
         Intent memoActivityIntent = new Intent(this, MemoActivity.class);
 
-        PasswordEntry passwordEntry = this.passwordEntries.get(position);
+        List<PasswordEntry> passwordEntries = passwordDatas.readDatas();
+        PasswordEntry passwordEntry = passwordEntries.get(position);
         passwordEntry.putInfos(memoActivityIntent);
 
         startActivityForResult(memoActivityIntent, MemoActivity.DISPLAY_MEMO);
@@ -77,8 +79,10 @@ public class DisplayListActivity extends ListActivity implements Injectable {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == MemoActivity.DISPLAY_MEMO
                 && resultCode == Activity.RESULT_OK) {
-            PasswordEntry passwordEntry = PasswordEntry.readInfos(data);
-            Log.v("TODO", "Return is not exploited yet.");
+            PasswordEntry passwordEntryUpdated = PasswordEntry.readInfos(data);
+            passwordDatas.update(passwordEntryUpdated);
+
+            refreshDisplay();
         }
     }
 }
