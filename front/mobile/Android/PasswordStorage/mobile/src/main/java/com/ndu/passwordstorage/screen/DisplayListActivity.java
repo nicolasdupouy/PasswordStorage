@@ -1,5 +1,6 @@
 package com.ndu.passwordstorage.screen;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -75,7 +76,7 @@ public class DisplayListActivity extends ListActivity implements Injectable {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == MemoActivity.DISPLAY_MEMO
-                && resultCode == RESULT_OK) {
+                && resultCode == Activity.RESULT_OK) {
             Log.v("TODO", "Return is not exploited yet.");
         }
     }

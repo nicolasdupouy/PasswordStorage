@@ -1,5 +1,6 @@
 package com.ndu.passwordstorage.screen;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -73,7 +74,8 @@ public class MemoActivity extends AppCompatActivity {
     }
 
     public void cancel(View view) {
-
+        setResult(RESULT_CANCELED);
+        finish();
     }
 
     public void update(View view) {
