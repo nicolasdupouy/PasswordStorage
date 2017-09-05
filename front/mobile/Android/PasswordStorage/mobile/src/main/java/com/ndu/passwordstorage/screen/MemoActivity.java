@@ -21,11 +21,16 @@ public class MemoActivity extends AppCompatActivity {
     public static final int DISPLAY_MEMO = 1;
     public static final int CREATE_MEMO = 2;
 
-    @Bind(R.id.site) EditText site;
-    @Bind(R.id.login) EditText login;
-    @Bind(R.id.password) EditText password;
-    @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.fab) FloatingActionButton fab;
+    @Bind(R.id.site)
+    EditText site;
+    @Bind(R.id.login)
+    EditText login;
+    @Bind(R.id.password)
+    EditText password;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +39,7 @@ public class MemoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = this.getIntent();
-        Bundle bundleExtra = intent.getBundleExtra(PasswordEntry.BUNDLE);
-        PasswordEntry pe = PasswordEntry.readFromBundle(bundleExtra);
+        PasswordEntry pe = PasswordEntry.readInfos(intent);
 
         this.site.setText(pe.getSite(), TextView.BufferType.EDITABLE);
         this.login.setText(pe.getLogin(), TextView.BufferType.EDITABLE);

@@ -55,17 +55,15 @@ public class DisplayListActivity extends ListActivity implements Injectable {
         Intent memoActivityIntent = new Intent(this, MemoActivity.class);
 
         PasswordEntry passwordEntry = this.passwordEntries.get(position);
-        memoActivityIntent.putExtra(PasswordEntry.BUNDLE, passwordEntry.createBundle());
-
-        Bundle bundleExtra = memoActivityIntent.getBundleExtra(PasswordEntry.BUNDLE);
-        PasswordEntry pe = PasswordEntry.readFromBundle(bundleExtra);
+        passwordEntry.putInfos(memoActivityIntent);
 
         startActivityForResult(memoActivityIntent, MemoActivity.DISPLAY_MEMO);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MemoActivity.DISPLAY_MEMO) {
+        if (requestCode == MemoActivity.DISPLAY_MEMO
+                && resultCode == RESULT_OK) {
             Log.v("TODO", "Return is not exploited yet.");
         }
     }
