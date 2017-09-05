@@ -49,6 +49,13 @@ public class PasswordEntry {
         this.password = password;
     }
 
+    public Intent giveInfos() {
+        Intent intent = new Intent();
+        putInfos(intent);
+
+        return intent;
+    }
+
     public void putInfos(Intent intent) {
         intent.putExtra(KEY, this.key);
         intent.putExtra(SITE, this.site);

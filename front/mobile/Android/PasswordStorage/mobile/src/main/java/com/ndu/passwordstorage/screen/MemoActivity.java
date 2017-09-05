@@ -79,6 +79,16 @@ public class MemoActivity extends AppCompatActivity {
     }
 
     public void update(View view) {
+        PasswordEntry passwordEntry = readMemo();
+        Intent intent = passwordEntry.giveInfos();
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+    }
 
+    private PasswordEntry readMemo() {
+        return PasswordEntry.makeNew(
+                this.site.getText().toString(),
+                this.login.getText().toString(),
+                this.password.getText().toString());
     }
 }

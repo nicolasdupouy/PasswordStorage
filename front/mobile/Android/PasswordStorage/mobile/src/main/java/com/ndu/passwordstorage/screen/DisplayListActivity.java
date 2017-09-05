@@ -77,6 +77,7 @@ public class DisplayListActivity extends ListActivity implements Injectable {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == MemoActivity.DISPLAY_MEMO
                 && resultCode == Activity.RESULT_OK) {
+            PasswordEntry passwordEntry = PasswordEntry.readInfos(data);
             Log.v("TODO", "Return is not exploited yet.");
         }
     }
