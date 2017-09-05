@@ -52,6 +52,12 @@ public class PasswordEntry {
         this.password = password;
     }
 
+    public void update(PasswordEntry passwordEntry) {
+        this.site = passwordEntry.site;
+        this.login = passwordEntry.login;
+        this.password = passwordEntry.password;
+    }
+
     public Intent giveInfos() {
         Intent intent = new Intent();
         putInfos(intent);

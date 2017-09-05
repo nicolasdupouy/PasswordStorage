@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface PasswordDatas {
     List<PasswordEntry> readDatas();
+    void update(PasswordEntry passwordEntryUpdated);
 }
