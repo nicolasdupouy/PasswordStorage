@@ -50,7 +50,9 @@ public class DisplayListActivity extends ListActivity implements Injectable {
         this.passwordEntries = passwordDatas.readDatas();
         List<String> names = new ArrayList<>();
         for (PasswordEntry entry : this.passwordEntries) {
-            names.add(entry.getLogin());
+            names.add(entry.getSite() + "/"
+                    + entry.getLogin() + "/"
+                    + entry.getPassword());
         }
         return names;
     }

@@ -18,10 +18,10 @@ public class PasswordDatasImpl implements PasswordDatas {
     @Override
     public List<PasswordEntry> readDatas() {
         List<PasswordEntry> datas = new ArrayList<>();
-        datas.add(PasswordEntry.makeNew("Site Nicolas", "Nicolas", "password_1"));
-        datas.add(PasswordEntry.makeNew("Site Hanane", "Hanane", "password_2"));
-        datas.add(PasswordEntry.makeNew("Site Nora", "Nora", "password_3"));
-        datas.add(PasswordEntry.makeNew("Site Test", "Test", "password_4"));
+        datas.add(PasswordEntry.makeNew("Site 1", "Login 1", "password 1"));
+        datas.add(PasswordEntry.makeNew("Site 2", "Login 2", "password 2"));
+        datas.add(PasswordEntry.makeNew("Site 3", "Login 3", "password 3"));
+        datas.add(PasswordEntry.makeNew("Site 4", "Login 4", "password 4"));
 
         return datas;
     }
