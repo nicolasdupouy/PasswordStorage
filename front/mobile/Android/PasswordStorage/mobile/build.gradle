@@ -21,10 +21,32 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Support libraries
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:design:26.+'
+
+    // Testing - Espresso
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    // Testing - JUnit
     testCompile 'junit:junit:4.12'
+
+    // Testing - for JSON testing
+    testCompile "org.robolectric:robolectric:3.0"
+    testCompile "org.apache.maven:maven-ant-tasks:2.1.3"
+
+    // Testing - Mockito
+    testCompile 'org.mockito:mockito-core:1.10.19'
+    androidTestCompile 'org.hamcrest:hamcrest-library:1.1'
+    
+    // Dependency injection
+    compile 'com.google.dagger:dagger:2.11'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+    provided 'javax.annotation:jsr250-api:1.0'
+    // Binding
+    compile group: 'com.jakewharton', name: 'butterknife', version: '7.0.1'
 }
