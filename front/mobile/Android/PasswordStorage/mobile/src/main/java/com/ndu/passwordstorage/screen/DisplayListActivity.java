@@ -3,6 +3,7 @@ package com.ndu.passwordstorage.screen;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -27,22 +28,31 @@ public class DisplayListActivity extends ListActivity implements Injectable {
     private List<PasswordEntry> passwordEntries;
 
     @Override
+    public void injectMe() {
+        ((MainApp) getApplication()).getAppComponent().inject(this);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         injectMe();
 
         setContentView(R.layout.activity_display_list);
-
         ListView listView = getListView();
 
+        List<String> names = fillMemoList();
+        ArrayAdapter<String> namesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
+        listView.setAdapter(namesAdapter);
+    }
+
+    @NonNull
+    private List<String> fillMemoList() {
         this.passwordEntries = passwordDatas.readDatas();
         List<String> names = new ArrayList<>();
         for (PasswordEntry entry : this.passwordEntries) {
             names.add(entry.getLogin());
         }
-
-        ArrayAdapter<String> namesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
-        listView.setAdapter(namesAdapter);
+        return names;
     }
 
     @Override
@@ -66,10 +76,5 @@ public class DisplayListActivity extends ListActivity implements Injectable {
                 && resultCode == RESULT_OK) {
             Log.v("TODO", "Return is not exploited yet.");
         }
-    }
-
-    @Override
-    public void injectMe() {
-        ((MainApp) getApplication()).getAppComponent().inject(this);
     }
 }

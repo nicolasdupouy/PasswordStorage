@@ -38,15 +38,18 @@ public class MemoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_memo);
         ButterKnife.bind(this);
 
+        readInfos();
+        setToolbar();
+        setCreateAction();
+    }
+
+    private void readInfos() {
         Intent intent = this.getIntent();
         PasswordEntry pe = PasswordEntry.readInfos(intent);
 
         this.site.setText(pe.getSite(), TextView.BufferType.EDITABLE);
         this.login.setText(pe.getLogin(), TextView.BufferType.EDITABLE);
         this.password.setText(pe.getPassword(), TextView.BufferType.EDITABLE);
-
-        setToolbar();
-        setCreateAction();
     }
 
     private void setToolbar() {
