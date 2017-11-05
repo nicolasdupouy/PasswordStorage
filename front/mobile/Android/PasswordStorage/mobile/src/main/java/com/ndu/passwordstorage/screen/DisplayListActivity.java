@@ -5,36 +5,23 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.ndu.passwordstorage.MainApp;
 import com.ndu.passwordstorage.R;
 import com.ndu.passwordstorage.data.impl.PasswordDatasImpl;
-import com.ndu.passwordstorage.di.Injectable;
 import com.ndu.passwordstorage.model.PasswordEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
-public class DisplayListActivity extends ListActivity implements Injectable {
-
-    @Inject
-    PasswordDatasImpl passwordDatas;
-
-    @Override
-    public void injectMe() {
-        ((MainApp) getApplication()).getAppComponent().inject(this);
-    }
+public class DisplayListActivity extends ListActivity {
+    PasswordDatasImpl passwordDatas = new PasswordDatasImpl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        injectMe();
 
         setContentView(R.layout.activity_display_list);
         refreshDisplay();
