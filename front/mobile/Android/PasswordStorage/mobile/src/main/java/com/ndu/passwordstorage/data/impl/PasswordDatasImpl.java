@@ -6,13 +6,10 @@ import com.ndu.passwordstorage.model.PasswordEntry;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 public class PasswordDatasImpl implements PasswordDatas {
 
     private List<PasswordEntry> datas = new ArrayList<>();
 
-    @Inject
     public PasswordDatasImpl() {
         datas.add(PasswordEntry.makeNew("Site 1", "Login 1", "password 1"));
         datas.add(PasswordEntry.makeNew("Site 2", "Login 2", "password 2"));
