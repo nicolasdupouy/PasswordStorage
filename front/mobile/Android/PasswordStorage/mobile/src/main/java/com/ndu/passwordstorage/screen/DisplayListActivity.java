@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.ndu.passwordstorage.R;
+import com.ndu.passwordstorage.data.PasswordDatas;
 import com.ndu.passwordstorage.data.impl.PasswordDatasImpl;
 import com.ndu.passwordstorage.model.PasswordEntry;
 
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DisplayListActivity extends ListActivity {
-    PasswordDatasImpl passwordDatas = new PasswordDatasImpl();
+    PasswordDatas passwordDatas = new PasswordDatasImpl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
