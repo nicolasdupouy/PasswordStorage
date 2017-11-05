@@ -11,18 +11,12 @@ import android.widget.ListView;
 
 import com.ndu.passwordstorage.MainApp;
 import com.ndu.passwordstorage.R;
-import com.ndu.passwordstorage.data.PasswordDatas;
-import com.ndu.passwordstorage.data.impl.PasswordDatasImpl;
 import com.ndu.passwordstorage.model.PasswordEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DisplayListActivity extends ListActivity {
-
-    private PasswordDatas getPasswordDatas() {
-        return ((MainApp)getApplication()).getPasswordDatas();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +35,7 @@ public class DisplayListActivity extends ListActivity {
 
     @NonNull
     private List<String> fillMemoList() {
-        List<PasswordEntry> passwordEntries = getPasswordDatas().readDatas();
+        List<PasswordEntry> passwordEntries = MainApp.getPasswordDatas().readDatas();
         List<String> names = new ArrayList<>();
         for (PasswordEntry entry : passwordEntries) {
             names.add(entry.getSite() + "/"
@@ -60,7 +54,7 @@ public class DisplayListActivity extends ListActivity {
     private void displayMemo(int position) {
         Intent memoActivityIntent = new Intent(this, MemoActivity.class);
 
-        List<PasswordEntry> passwordEntries = getPasswordDatas().readDatas();
+        List<PasswordEntry> passwordEntries = MainApp.getPasswordDatas().readDatas();
         PasswordEntry passwordEntry = passwordEntries.get(position);
         passwordEntry.putInfos(memoActivityIntent);
 
@@ -72,7 +66,7 @@ public class DisplayListActivity extends ListActivity {
         if (requestCode == MemoActivity.DISPLAY_MEMO
                 && resultCode == Activity.RESULT_OK) {
             PasswordEntry passwordEntryUpdated = PasswordEntry.readInfos(data);
-            getPasswordDatas().update(passwordEntryUpdated);
+            MainApp.getPasswordDatas().update(passwordEntryUpdated);
 
             refreshDisplay();
         }
