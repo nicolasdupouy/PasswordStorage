@@ -1,6 +1,5 @@
 package com.ndu.passwordstorage.data;
 
-
 import com.ndu.passwordstorage.model.PasswordEntry;
 
 import java.util.List;
