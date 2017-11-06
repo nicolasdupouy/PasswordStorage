@@ -1,9 +1,8 @@
 package com.ndu.passwordstorage.model;
 
 import android.content.Intent;
-import android.os.Bundle;
 
-import com.ndu.passwordstorage.data.PasswordDatasContract;
+import com.ndu.passwordstorage.data.DataContract;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -63,18 +62,18 @@ public class PasswordEntry {
     }
 
     public void putInfos(Intent intent) {
-        intent.putExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_KEY, this.key);
-        intent.putExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_SITE, this.site);
-        intent.putExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_LOGIN, this.login);
-        intent.putExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_PASSWORD, this.password);
+        intent.putExtra(DataContract.DataEntry.COLUMN_NAME_KEY, this.key);
+        intent.putExtra(DataContract.DataEntry.COLUMN_NAME_SITE, this.site);
+        intent.putExtra(DataContract.DataEntry.COLUMN_NAME_LOGIN, this.login);
+        intent.putExtra(DataContract.DataEntry.COLUMN_NAME_PASSWORD, this.password);
     }
 
     public static PasswordEntry readInfos(Intent intent) {
         PasswordEntry passwordEntry = new PasswordEntry();
-        passwordEntry.key = intent.getStringExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_KEY);
-        passwordEntry.site = intent.getStringExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_SITE);
-        passwordEntry.login = intent.getStringExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_LOGIN);
-        passwordEntry.password = intent.getStringExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_PASSWORD);
+        passwordEntry.key = intent.getStringExtra(DataContract.DataEntry.COLUMN_NAME_KEY);
+        passwordEntry.site = intent.getStringExtra(DataContract.DataEntry.COLUMN_NAME_SITE);
+        passwordEntry.login = intent.getStringExtra(DataContract.DataEntry.COLUMN_NAME_LOGIN);
+        passwordEntry.password = intent.getStringExtra(DataContract.DataEntry.COLUMN_NAME_PASSWORD);
 
         return passwordEntry;
     }
