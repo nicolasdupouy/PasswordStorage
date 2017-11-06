@@ -3,17 +3,14 @@ package com.ndu.passwordstorage.model;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.ndu.passwordstorage.data.PasswordDatasContract;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
 public class PasswordEntry {
-    private static final String KEY = "key";
-    private static final String SITE = "site";
-    private static final String LOGIN = "login";
-    private static final String PASSWORD = "password";
-
     private String key;
     private String site;
     private String login;
@@ -66,18 +63,18 @@ public class PasswordEntry {
     }
 
     public void putInfos(Intent intent) {
-        intent.putExtra(KEY, this.key);
-        intent.putExtra(SITE, this.site);
-        intent.putExtra(LOGIN, this.login);
-        intent.putExtra(PASSWORD, this.password);
+        intent.putExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_KEY, this.key);
+        intent.putExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_SITE, this.site);
+        intent.putExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_LOGIN, this.login);
+        intent.putExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_PASSWORD, this.password);
     }
 
     public static PasswordEntry readInfos(Intent intent) {
         PasswordEntry passwordEntry = new PasswordEntry();
-        passwordEntry.key = intent.getStringExtra(KEY);
-        passwordEntry.site = intent.getStringExtra(SITE);
-        passwordEntry.login = intent.getStringExtra(LOGIN);
-        passwordEntry.password = intent.getStringExtra(PASSWORD);
+        passwordEntry.key = intent.getStringExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_KEY);
+        passwordEntry.site = intent.getStringExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_SITE);
+        passwordEntry.login = intent.getStringExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_LOGIN);
+        passwordEntry.password = intent.getStringExtra(PasswordDatasContract.PasswordDataEntry.COLUMN_NAME_PASSWORD);
 
         return passwordEntry;
     }
