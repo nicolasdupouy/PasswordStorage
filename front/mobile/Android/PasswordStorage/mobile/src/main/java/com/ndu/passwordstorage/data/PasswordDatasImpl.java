@@ -1,6 +1,5 @@
-package com.ndu.passwordstorage.data.impl;
+package com.ndu.passwordstorage.data;
 
-import com.ndu.passwordstorage.data.PasswordDatas;
 import com.ndu.passwordstorage.model.PasswordEntry;
 
 import java.util.ArrayList;
@@ -10,7 +9,11 @@ public class PasswordDatasImpl implements PasswordDatas {
 
     private List<PasswordEntry> datas = new ArrayList<>();
 
-    public PasswordDatasImpl() {
+    public  PasswordDatasImpl() {
+        fillDatasIfEmpty();
+    }
+
+    private void fillDatasIfEmpty() {
         datas.add(PasswordEntry.makeNew("Site 1", "Login 1", "password 1"));
         datas.add(PasswordEntry.makeNew("Site 2", "Login 2", "password 2"));
         datas.add(PasswordEntry.makeNew("Site 3", "Login 3", "password 3"));
