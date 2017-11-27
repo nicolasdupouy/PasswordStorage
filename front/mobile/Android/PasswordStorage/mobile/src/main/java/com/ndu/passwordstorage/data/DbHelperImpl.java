@@ -36,17 +36,17 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
     }
 
     @Override
-    public void insertEntry() {
+    public void insertEntry(PasswordEntry passwordEntry) {
 
     }
 
     @Override
-    public void updateEntry() {
+    public void updateEntry(PasswordEntry passwordEntry) {
 
     }
 
     @Override
-    public void deleteEntry() {
+    public void deleteEntry(PasswordEntry passwordEntry) {
 
     }
 }

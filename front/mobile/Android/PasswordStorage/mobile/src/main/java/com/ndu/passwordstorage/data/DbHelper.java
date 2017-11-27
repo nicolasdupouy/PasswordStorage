@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DbHelper {
     List<PasswordEntry> getEntries();
-    void insertEntry();
-    void updateEntry();
-    void deleteEntry();
+    void insertEntry(PasswordEntry passwordEntry);
+    void updateEntry(PasswordEntry passwordEntry);
+    void deleteEntry(PasswordEntry passwordEntry);
 }
