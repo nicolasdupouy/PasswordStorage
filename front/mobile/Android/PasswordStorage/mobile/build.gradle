@@ -48,5 +48,6 @@ dependencies {
     androidTestCompile 'org.hamcrest:hamcrest-library:1.1'
 
     // Binding
-    compile group: 'com.jakewharton', name: 'butterknife', version: '7.0.1'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
