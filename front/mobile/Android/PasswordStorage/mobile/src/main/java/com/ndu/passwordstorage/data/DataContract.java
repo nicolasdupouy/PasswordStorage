@@ -18,7 +18,7 @@ public final class DataContract {
                 "CREATE TABLE " + DataContract.DataEntry.TABLE_NAME
                         + "("
                         + DataContract.DataEntry._ID + " INTEGER PRIMARY KEY,"
-                        + DataContract.DataEntry.COLUMN_NAME_KEY + " INTEGER,"
+                        + DataContract.DataEntry.COLUMN_NAME_KEY + " TEXT,"
                         + DataContract.DataEntry.COLUMN_NAME_LOGIN + "TEXT,"
                         + DataContract.DataEntry.COLUMN_NAME_PASSWORD + "TEXT,"
                         + DataContract.DataEntry.COLUMN_NAME_SITE + "TEXT"

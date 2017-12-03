@@ -10,6 +10,7 @@ import java.util.Locale;
 import java.util.Random;
 
 public class PasswordEntry {
+    private int id;
     private String key;
     private String site;
     private String login;
@@ -18,6 +19,14 @@ public class PasswordEntry {
     private static Random random = new Random(1);
 
     private PasswordEntry() {}
+
+    public PasswordEntry(int id, String key, String site, String login, String password) {
+        this.id = id;
+        this.key = key;
+        this.site = site;
+        this.login = login;
+        this.password = password;
+    }
 
     public static PasswordEntry makeNew(String site, String login, String password) {
         PasswordEntry passwordEntry = PasswordEntry.makeNew();

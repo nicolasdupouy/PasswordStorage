@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.ndu.passwordstorage.model.PasswordEntry;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
@@ -32,7 +34,40 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
 
     @Override
     public List<PasswordEntry> getEntries() {
-        return null;
+        List<PasswordEntry> entries = new ArrayList<>();
+
+        SQLiteDatabase readableDatabase = getReadableDatabase();
+
+        String[] columns = {
+                DataContract.DataEntry._ID,
+                DataContract.DataEntry.COLUMN_NAME_KEY,
+                DataContract.DataEntry.COLUMN_NAME_LOGIN,
+                DataContract.DataEntry.COLUMN_NAME_PASSWORD,
+                DataContract.DataEntry.COLUMN_NAME_SITE
+        };
+
+        Cursor cursor = readableDatabase.query(
+                DataContract.DataEntry.TABLE_NAME,
+                columns,
+                null,
+                null,
+                null,
+                null,
+                null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                int id = cursor.getInt(cursor.getColumnIndex(DataContract.DataEntry._ID));
+                String key = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_KEY));
+                String site = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_SITE));
+                String login = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_LOGIN));
+                String password = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_PASSWORD));
+
+                entries.add(new PasswordEntry(id, key, site, login, password));
+            }
+        }
+
+        return entries;
+        //return Collections.singletonList(PasswordEntry.makeNew("site_A", "login_A", "password_A"));
     }
 
     @Override
