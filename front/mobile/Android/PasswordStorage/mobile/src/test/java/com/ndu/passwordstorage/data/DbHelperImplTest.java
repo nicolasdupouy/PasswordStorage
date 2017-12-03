@@ -1,13 +1,16 @@
 package com.ndu.passwordstorage.data;
 
 import com.ndu.passwordstorage.model.PasswordEntry;
+import com.ndu.passwordstorage.screen.DisplayListActivity;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
@@ -18,22 +21,30 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = Config.NONE)
 public class DbHelperImplTest {
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
-    @Mock
-    public DbHelper databaseMock;
 
     private static PasswordEntry PASSWORD_ENTRY_1 = PasswordEntry.makeNew("site_1", "login_1", "password_1");
 
+    private DbHelper dbHelper;
+
+    @Before
+    public void setUp() {
+        // Given
+        DisplayListActivity displayListActivity = Robolectric.setupActivity(DisplayListActivity.class);
+        dbHelper = new DbHelperImpl(displayListActivity.getApplicationContext());
+    }
+
     @Test
     public void should_add_entry_on_empty_database() {
-        List<PasswordEntry> entriesBefore = databaseMock.getEntries();
-        databaseMock.insertEntry(PASSWORD_ENTRY_1);
-        List<PasswordEntry> entriesAfter = databaseMock.getEntries();
+        // When
+        List<PasswordEntry> entriesBefore = dbHelper.getEntries();
+        dbHelper.insertEntry(PASSWORD_ENTRY_1);
+        List<PasswordEntry> entriesAfter = dbHelper.getEntries();
 
+        // Then
         assertThat(entriesBefore.size(), is(0));
         assertThat(entriesAfter.size(), is(1));
         assertTrue(entriesAfter.contains(PASSWORD_ENTRY_1));
