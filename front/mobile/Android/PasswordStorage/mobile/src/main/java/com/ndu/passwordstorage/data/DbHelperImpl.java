@@ -1,9 +1,11 @@
 package com.ndu.passwordstorage.data;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.ndu.passwordstorage.model.PasswordEntry;
 
@@ -70,7 +72,18 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
 
     @Override
     public void insertEntry(PasswordEntry passwordEntry) {
+        SQLiteDatabase writableDatabase = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DataContract.DataEntry.COLUMN_NAME_KEY, passwordEntry.getKey());
+        values.put(DataContract.DataEntry.COLUMN_NAME_SITE, passwordEntry.getSite());
+        values.put(DataContract.DataEntry.COLUMN_NAME_LOGIN, passwordEntry.getLogin());
+        values.put(DataContract.DataEntry.COLUMN_NAME_PASSWORD, passwordEntry.getPassword());
 
+        long insert = writableDatabase.insert(
+                DataContract.DataEntry.TABLE_NAME,
+                null,
+                values);
+        Log.v("DbHelperImpl", "insert=" + insert);
     }
 
     @Override
