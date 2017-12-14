@@ -54,17 +54,14 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
                 null,
                 null,
                 null);
-        if (cursor.moveToFirst()) {
-            while (!cursor.isAfterLast()) {
-                int id = cursor.getInt(cursor.getColumnIndex(DataContract.DataEntry._ID));
-                String key = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_KEY));
-                String site = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_SITE));
-                String login = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_LOGIN));
-                String password = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_PASSWORD));
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex(DataContract.DataEntry._ID));
+            String key = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_KEY));
+            String site = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_SITE));
+            String login = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_LOGIN));
+            String password = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_PASSWORD));
 
-                entries.add(new PasswordEntry(id, key, site, login, password));
-                cursor.moveToNext();
-            }
+            entries.add(new PasswordEntry(id, key, site, login, password));
         }
         cursor.close();
 
