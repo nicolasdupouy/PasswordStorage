@@ -63,11 +63,12 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
                 String password = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_PASSWORD));
 
                 entries.add(new PasswordEntry(id, key, site, login, password));
+                cursor.moveToNext();
             }
         }
+        cursor.close();
 
         return entries;
-        //return Collections.singletonList(PasswordEntry.makeNew("site_A", "login_A", "password_A"));
     }
 
     @Override
