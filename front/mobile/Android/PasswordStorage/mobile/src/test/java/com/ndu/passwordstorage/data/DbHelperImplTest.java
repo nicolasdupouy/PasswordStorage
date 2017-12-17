@@ -27,6 +27,7 @@ public class DbHelperImplTest {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     private static PasswordEntry PASSWORD_ENTRY_1 = PasswordEntry.makeNew("site_1", "login_1", "password_1");
+    private static PasswordEntry PASSWORD_ENTRY_2 = PasswordEntry.makeNew("site_2", "login_2", "password_2");
 
     private DbHelper dbHelper;
 
@@ -48,5 +49,21 @@ public class DbHelperImplTest {
         assertThat(entriesBefore.size(), is(0));
         assertThat(entriesAfter.size(), is(1));
         assertTrue(entriesAfter.contains(PASSWORD_ENTRY_1));
+    }
+
+    @Test
+    public void should_add_an_entry_only_once() {
+        // When
+        List<PasswordEntry> entriesBefore = dbHelper.getEntries();
+        dbHelper.insertEntry(PASSWORD_ENTRY_1);
+        dbHelper.insertEntry(PASSWORD_ENTRY_2);
+        dbHelper.insertEntry(PASSWORD_ENTRY_1);
+        List<PasswordEntry> entriesAfter = dbHelper.getEntries();
+
+        // Then
+        assertThat(entriesBefore.size(), is(0));
+        assertThat(entriesAfter.size(), is(2));
+        assertTrue(entriesAfter.contains(PASSWORD_ENTRY_1));
+        assertTrue(entriesAfter.contains(PASSWORD_ENTRY_2));
     }
 }
