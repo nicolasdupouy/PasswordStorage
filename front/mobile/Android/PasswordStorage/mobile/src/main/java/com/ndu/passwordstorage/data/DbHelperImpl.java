@@ -71,7 +71,7 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
     }
 
     @Override
-    public void insertEntry(PasswordEntry passwordEntry) {
+    public boolean insertEntry(PasswordEntry passwordEntry) {
         SQLiteDatabase writableDatabase = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(DataContract.DataEntry.COLUMN_NAME_KEY, passwordEntry.getKey());
@@ -83,7 +83,7 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
                 DataContract.DataEntry.TABLE_NAME,
                 null,
                 values);
-        Log.v("DbHelperImpl", "insert=" + insert);
+        return insert != -1;
     }
 
     @Override

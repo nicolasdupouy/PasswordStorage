@@ -17,6 +17,7 @@ import org.robolectric.annotation.Config;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -42,12 +43,13 @@ public class DbHelperImplTest {
     public void should_add_entry_on_empty_database() {
         // When
         List<PasswordEntry> entriesBefore = dbHelper.getEntries();
-        dbHelper.insertEntry(PASSWORD_ENTRY_1);
+        boolean insertFirstPasswordEntry = dbHelper.insertEntry(PASSWORD_ENTRY_1);
         List<PasswordEntry> entriesAfter = dbHelper.getEntries();
 
         // Then
         assertThat(entriesBefore.size(), is(0));
         assertThat(entriesAfter.size(), is(1));
+        assertTrue(insertFirstPasswordEntry);
         assertTrue(entriesAfter.contains(PASSWORD_ENTRY_1));
     }
 
@@ -55,14 +57,17 @@ public class DbHelperImplTest {
     public void should_add_an_entry_only_once() {
         // When
         List<PasswordEntry> entriesBefore = dbHelper.getEntries();
-        dbHelper.insertEntry(PASSWORD_ENTRY_1);
-        dbHelper.insertEntry(PASSWORD_ENTRY_2);
-        dbHelper.insertEntry(PASSWORD_ENTRY_1);
+        boolean insertFirstPasswordEntryFirstTime = dbHelper.insertEntry(PASSWORD_ENTRY_1);
+        boolean insertSecondPasswordEntry = dbHelper.insertEntry(PASSWORD_ENTRY_2);
+        boolean insertFirstPasswordEntrySecondTime = dbHelper.insertEntry(PASSWORD_ENTRY_1);
         List<PasswordEntry> entriesAfter = dbHelper.getEntries();
 
         // Then
         assertThat(entriesBefore.size(), is(0));
         assertThat(entriesAfter.size(), is(2));
+        assertTrue(insertFirstPasswordEntryFirstTime);
+        assertTrue(insertSecondPasswordEntry);
+        assertFalse(insertFirstPasswordEntrySecondTime);
         assertTrue(entriesAfter.contains(PASSWORD_ENTRY_1));
         assertTrue(entriesAfter.contains(PASSWORD_ENTRY_2));
     }
