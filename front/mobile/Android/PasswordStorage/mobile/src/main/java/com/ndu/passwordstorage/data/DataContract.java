@@ -14,17 +14,26 @@ public final class DataContract {
         public static final String COLUMN_NAME_LOGIN = "login";
         public static final String COLUMN_NAME_PASSWORD = "password";
 
+        private static final String SQL_CREATE_CONSTRAINT = " CONSTRAINT constraint_name UNIQUE ("
+                + DataEntry.COLUMN_NAME_LOGIN
+                + ", "
+                + DataEntry.COLUMN_NAME_PASSWORD
+                + ", "
+                + DataEntry.COLUMN_NAME_SITE
+                + ")";
+
         static final String SQL_CREATE_ENTRIES =
-                "CREATE TABLE " + DataContract.DataEntry.TABLE_NAME
+                "CREATE TABLE " + DataEntry.TABLE_NAME
                         + "("
-                        + DataContract.DataEntry._ID + " INTEGER PRIMARY KEY,"
-                        + DataContract.DataEntry.COLUMN_NAME_KEY + " TEXT,"
-                        + DataContract.DataEntry.COLUMN_NAME_LOGIN + " TEXT,"
-                        + DataContract.DataEntry.COLUMN_NAME_PASSWORD + " TEXT,"
-                        + DataContract.DataEntry.COLUMN_NAME_SITE + " TEXT"
+                        + DataEntry._ID + " INTEGER PRIMARY KEY,"
+                        + DataEntry.COLUMN_NAME_KEY + " TEXT, "
+                        + DataEntry.COLUMN_NAME_LOGIN + " TEXT, "
+                        + DataEntry.COLUMN_NAME_PASSWORD + " TEXT, "
+                        + DataEntry.COLUMN_NAME_SITE + " TEXT, "
+                        + SQL_CREATE_CONSTRAINT
                         + ")";
 
         static final String SQL_DELETE_ENTRIES =
-                "DROP TABLE IF EXISTS " + DataContract.DataEntry.TABLE_NAME;
+                "DROP TABLE IF EXISTS " + DataEntry.TABLE_NAME;
     }
 }
