@@ -26,10 +26,10 @@ public final class DataContract {
                 "CREATE TABLE " + DataEntry.TABLE_NAME
                         + "("
                         + DataEntry._ID + " INTEGER PRIMARY KEY,"
-                        + DataEntry.COLUMN_NAME_KEY + " TEXT, "
-                        + DataEntry.COLUMN_NAME_LOGIN + " TEXT, "
-                        + DataEntry.COLUMN_NAME_PASSWORD + " TEXT, "
-                        + DataEntry.COLUMN_NAME_SITE + " TEXT, "
+                        + DataEntry.COLUMN_NAME_KEY + " TEXT NOT NULL, "
+                        + DataEntry.COLUMN_NAME_LOGIN + " TEXT NOT NULL, "
+                        + DataEntry.COLUMN_NAME_PASSWORD + " TEXT NOT NULL, "
+                        + DataEntry.COLUMN_NAME_SITE + " TEXT NOT NULL, "
                         + SQL_CREATE_CONSTRAINT
                         + ")";
 
