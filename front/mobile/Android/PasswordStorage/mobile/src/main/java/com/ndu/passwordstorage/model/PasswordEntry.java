@@ -20,12 +20,15 @@ public class PasswordEntry {
 
     private PasswordEntry() {}
 
-    public PasswordEntry(int id, String key, String site, String login, String password) {
-        this.id = id;
-        this.key = key;
-        this.site = site;
-        this.login = login;
-        this.password = password;
+    public static PasswordEntry get(int id, String key, String site, String login, String password) {
+        PasswordEntry pe = new PasswordEntry();
+        pe.id = id;
+        pe.key = key;
+        pe.site = site;
+        pe.login = login;
+        pe.password = password;
+
+        return pe;
     }
 
     public static PasswordEntry makeNew(String site, String login, String password) {

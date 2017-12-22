@@ -63,7 +63,7 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
             String login = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_LOGIN));
             String password = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_PASSWORD));
 
-            entries.add(new PasswordEntry(id, key, site, login, password));
+            entries.add(PasswordEntry.get(id, key, site, login, password));
         }
         cursor.close();
 
@@ -73,6 +73,7 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
     @Override
     public boolean insertEntry(PasswordEntry passwordEntry) {
         SQLiteDatabase writableDatabase = getWritableDatabase();
+
         ContentValues values = new ContentValues();
         values.put(DataContract.DataEntry.COLUMN_NAME_KEY, passwordEntry.getKey());
         values.put(DataContract.DataEntry.COLUMN_NAME_SITE, passwordEntry.getSite());
