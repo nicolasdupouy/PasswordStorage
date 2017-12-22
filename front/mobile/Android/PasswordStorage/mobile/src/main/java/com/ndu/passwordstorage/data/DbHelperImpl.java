@@ -88,8 +88,24 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
     }
 
     @Override
-    public void updateEntry(PasswordEntry passwordEntry) {
+    public boolean updateEntry(PasswordEntry passwordEntry) {
+        SQLiteDatabase db = getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put(DataContract.DataEntry.COLUMN_NAME_SITE, passwordEntry.getSite());
+        values.put(DataContract.DataEntry.COLUMN_NAME_LOGIN, passwordEntry.getLogin());
+        values.put(DataContract.DataEntry.COLUMN_NAME_PASSWORD, passwordEntry.getPassword());
+
+        String selection = DataContract.DataEntry.COLUMN_NAME_KEY + " = ?";
+        String[] selectionArgs = {passwordEntry.getKey()};
+
+        int update = db.update(
+                DataContract.DataEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+
+        return update == 1;
     }
 
     @Override

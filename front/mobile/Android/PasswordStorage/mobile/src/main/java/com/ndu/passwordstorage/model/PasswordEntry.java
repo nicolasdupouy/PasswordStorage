@@ -31,6 +31,17 @@ public class PasswordEntry {
         return pe;
     }
 
+    public static PasswordEntry get(PasswordEntry passwordEntry) {
+        PasswordEntry pe = new PasswordEntry();
+        pe.id = passwordEntry.id;
+        pe.key = passwordEntry.key;
+        pe.site = passwordEntry.site;
+        pe.login = passwordEntry.login;
+        pe.password = passwordEntry.password;
+
+        return pe;
+    }
+
     public static PasswordEntry makeNew(String site, String login, String password) {
         PasswordEntry passwordEntry = PasswordEntry.makeNew();
         passwordEntry.update(site, login, password);
