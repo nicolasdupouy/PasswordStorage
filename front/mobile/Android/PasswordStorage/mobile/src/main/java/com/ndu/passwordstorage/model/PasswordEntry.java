@@ -51,28 +51,6 @@ public class PasswordEntry {
         return formatter.format(new Date()) + random.nextInt();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        PasswordEntry that = (PasswordEntry) o;
-
-        if (key != null ? !key.equals(that.key) : that.key != null) return false;
-        if (site != null ? !site.equals(that.site) : that.site != null) return false;
-        if (login != null ? !login.equals(that.login) : that.login != null) return false;
-        return password != null ? password.equals(that.password) : that.password == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = key != null ? key.hashCode() : 0;
-        result = 31 * result + (site != null ? site.hashCode() : 0);
-        result = 31 * result + (login != null ? login.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        return result;
-    }
-
     public void update(String site, String login, String password) {
         this.site = site;
         this.login = login;
@@ -123,5 +101,27 @@ public class PasswordEntry {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PasswordEntry that = (PasswordEntry) o;
+
+        if (key != null ? !key.equals(that.key) : that.key != null) return false;
+        if (site != null ? !site.equals(that.site) : that.site != null) return false;
+        if (login != null ? !login.equals(that.login) : that.login != null) return false;
+        return password != null ? password.equals(that.password) : that.password == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = key != null ? key.hashCode() : 0;
+        result = 31 * result + (site != null ? site.hashCode() : 0);
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        return result;
     }
 }
