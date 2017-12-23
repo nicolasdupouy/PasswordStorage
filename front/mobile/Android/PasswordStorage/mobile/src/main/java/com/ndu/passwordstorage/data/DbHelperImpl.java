@@ -109,7 +109,7 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
     }
 
     @Override
-    public void deleteEntry(PasswordEntry passwordEntry) {
-
+    public boolean deleteEntry(PasswordEntry passwordEntry) {
+        return false;
     }
 }

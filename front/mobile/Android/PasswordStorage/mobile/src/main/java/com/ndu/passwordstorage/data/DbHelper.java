@@ -8,5 +8,5 @@ public interface DbHelper {
     List<PasswordEntry> getEntries();
     boolean insertEntry(PasswordEntry passwordEntry);
     boolean updateEntry(PasswordEntry passwordEntry);
-    void deleteEntry(PasswordEntry passwordEntry);
+    boolean deleteEntry(PasswordEntry passwordEntry);
 }

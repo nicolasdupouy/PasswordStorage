@@ -168,4 +168,76 @@ public class DbHelperImplTest {
         assertTrue(entriesAfterThirdUpdate.contains(PASSWORD_ENTRY_2_UPDATED));
         assertTrue(entriesAfterThirdUpdate.contains(PASSWORD_ENTRY_3_UPDATED));
     }
+
+    @Test
+    public void should_delete_existent_entry_if_alone() {
+        // When
+        dbHelper.insertEntry(PASSWORD_ENTRY_1);
+        List<PasswordEntry> entriesBeforeDelete = dbHelper.getEntries();
+
+        // Then
+        boolean deleteExistentEntry = dbHelper.deleteEntry(PASSWORD_ENTRY_1);
+        List<PasswordEntry> entriesAfterDelete = dbHelper.getEntries();
+
+        assertThat(entriesBeforeDelete.size(), is(1));
+        assertThat(entriesAfterDelete.size(), is(0));
+        assertTrue(deleteExistentEntry);
+
+        assertFalse(entriesAfterDelete.contains(PASSWORD_ENTRY_1));
+    }
+
+    @Test
+    public void should_delete_existent_entry_if_not_alone() {
+        // When
+        dbHelper.insertEntry(PASSWORD_ENTRY_1);
+        dbHelper.insertEntry(PASSWORD_ENTRY_2);
+        dbHelper.insertEntry(PASSWORD_ENTRY_3);
+        List<PasswordEntry> entriesBeforeDelete = dbHelper.getEntries();
+
+        // Then
+        boolean deleteExistentEntry = dbHelper.deleteEntry(PASSWORD_ENTRY_2);
+        List<PasswordEntry> entriesAfterDelete = dbHelper.getEntries();
+
+        assertThat(entriesBeforeDelete.size(), is(3));
+        assertThat(entriesAfterDelete.size(), is(2));
+        assertTrue(deleteExistentEntry);
+
+        assertFalse(entriesAfterDelete.contains(PASSWORD_ENTRY_2));
+    }
+
+    @Test
+    public void should_not_delete_inexistent_entry_if_alone() {
+        // When
+        dbHelper.insertEntry(PASSWORD_ENTRY_1);
+        List<PasswordEntry> entriesBeforeDelete = dbHelper.getEntries();
+
+        // Then
+        boolean deleteInexistentEntry = dbHelper.deleteEntry(PASSWORD_ENTRY_1_UPDATED);
+        List<PasswordEntry> entriesAfterDelete = dbHelper.getEntries();
+
+        assertThat(entriesBeforeDelete.size(), is(1));
+        assertThat(entriesAfterDelete.size(), is(1));
+        assertFalse(deleteInexistentEntry);
+
+        assertTrue(entriesAfterDelete.contains(PASSWORD_ENTRY_1));
+    }
+
+    @Test
+    public void should_not_delete_inexistent_entry_if_not_alone() {
+        // When
+        dbHelper.insertEntry(PASSWORD_ENTRY_1);
+        dbHelper.insertEntry(PASSWORD_ENTRY_2);
+        dbHelper.insertEntry(PASSWORD_ENTRY_3);
+        List<PasswordEntry> entriesBeforeDelete = dbHelper.getEntries();
+
+        // Then
+        boolean deleteInexistentEntry = dbHelper.deleteEntry(PASSWORD_ENTRY_1_UPDATED);
+        List<PasswordEntry> entriesAfterDelete = dbHelper.getEntries();
+
+        assertThat(entriesBeforeDelete.size(), is(3));
+        assertThat(entriesAfterDelete.size(), is(3));
+        assertFalse(deleteInexistentEntry);
+
+        assertTrue(entriesAfterDelete.contains(PASSWORD_ENTRY_1));
+    }
 }
