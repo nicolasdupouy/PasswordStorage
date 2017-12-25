@@ -212,7 +212,7 @@ public class DbHelperImplTest {
         List<PasswordEntry> entriesBeforeDelete = dbHelper.getEntries();
 
         // Then
-        boolean deleteInexistentEntry = dbHelper.deleteEntry(PASSWORD_ENTRY_1_UPDATED);
+        boolean deleteInexistentEntry = dbHelper.deleteEntry(PASSWORD_ENTRY_2);
         List<PasswordEntry> entriesAfterDelete = dbHelper.getEntries();
 
         assertThat(entriesBeforeDelete.size(), is(1));
@@ -227,17 +227,17 @@ public class DbHelperImplTest {
         // When
         dbHelper.insertEntry(PASSWORD_ENTRY_1);
         dbHelper.insertEntry(PASSWORD_ENTRY_2);
-        dbHelper.insertEntry(PASSWORD_ENTRY_3);
         List<PasswordEntry> entriesBeforeDelete = dbHelper.getEntries();
 
         // Then
-        boolean deleteInexistentEntry = dbHelper.deleteEntry(PASSWORD_ENTRY_1_UPDATED);
+        boolean deleteInexistentEntry = dbHelper.deleteEntry(PASSWORD_ENTRY_3);
         List<PasswordEntry> entriesAfterDelete = dbHelper.getEntries();
 
-        assertThat(entriesBeforeDelete.size(), is(3));
-        assertThat(entriesAfterDelete.size(), is(3));
+        assertThat(entriesBeforeDelete.size(), is(2));
+        assertThat(entriesAfterDelete.size(), is(2));
         assertFalse(deleteInexistentEntry);
 
         assertTrue(entriesAfterDelete.contains(PASSWORD_ENTRY_1));
+        assertTrue(entriesAfterDelete.contains(PASSWORD_ENTRY_2));
     }
 }
