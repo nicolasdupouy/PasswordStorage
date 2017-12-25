@@ -110,6 +110,13 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
 
     @Override
     public boolean deleteEntry(PasswordEntry passwordEntry) {
-        return true;
+        SQLiteDatabase db = getWritableDatabase();
+
+        String selection = DataContract.DataEntry.COLUMN_NAME_KEY + " = ?";
+        String[] selectionArgs = {passwordEntry.getKey()};
+
+        int delete = db.delete(DataContract.DataEntry.TABLE_NAME, selection, selectionArgs);
+
+        return delete == 1;
     }
 }
