@@ -119,4 +119,9 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
 
         return delete == 1;
     }
+
+    @Override
+    public void closeDatabase() {
+        close();
+    }
 }

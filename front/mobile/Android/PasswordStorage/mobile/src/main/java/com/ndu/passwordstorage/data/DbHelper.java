@@ -9,4 +9,5 @@ public interface DbHelper {
     boolean insertEntry(PasswordEntry passwordEntry);
     boolean updateEntry(PasswordEntry passwordEntry);
     boolean deleteEntry(PasswordEntry passwordEntry);
+    void closeDatabase();
 }
