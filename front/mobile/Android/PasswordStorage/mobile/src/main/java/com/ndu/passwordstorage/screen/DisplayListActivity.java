@@ -9,8 +9,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.ndu.passwordstorage.MainApp;
 import com.ndu.passwordstorage.R;
+import com.ndu.passwordstorage.data.PasswordDatabase;
+import com.ndu.passwordstorage.data.PasswordDatabaseImpl;
 import com.ndu.passwordstorage.model.PasswordEntry;
 
 import java.util.ArrayList;
@@ -18,12 +19,21 @@ import java.util.List;
 
 public class DisplayListActivity extends ListActivity {
 
+    private PasswordDatabase passwordDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        passwordDatabase = new PasswordDatabaseImpl(getApplicationContext());
 
         setContentView(R.layout.activity_display_list);
         refreshDisplay();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        passwordDatabase.closeDatabase();
     }
 
     private void refreshDisplay() {
@@ -35,7 +45,7 @@ public class DisplayListActivity extends ListActivity {
 
     @NonNull
     private List<String> fillMemoList() {
-        List<PasswordEntry> passwordEntries = MainApp.getPasswordDatabase().select();
+        List<PasswordEntry> passwordEntries = passwordDatabase.select();
         List<String> names = new ArrayList<>();
         for (PasswordEntry entry : passwordEntries) {
             names.add(entry.getSite() + "/"
@@ -54,7 +64,7 @@ public class DisplayListActivity extends ListActivity {
     private void displayMemo(int position) {
         Intent memoActivityIntent = new Intent(this, MemoActivity.class);
 
-        List<PasswordEntry> passwordEntries = MainApp.getPasswordDatabase().select();
+        List<PasswordEntry> passwordEntries = passwordDatabase.select();
         PasswordEntry passwordEntry = passwordEntries.get(position);
         passwordEntry.putInfos(memoActivityIntent);
 
@@ -66,7 +76,7 @@ public class DisplayListActivity extends ListActivity {
         if (requestCode == MemoActivity.DISPLAY_MEMO
                 && resultCode == Activity.RESULT_OK) {
             PasswordEntry passwordEntryUpdated = PasswordEntry.readInfos(data);
-            MainApp.getPasswordDatabase().update(passwordEntryUpdated);
+            passwordDatabase.update(passwordEntryUpdated);
 
             refreshDisplay();
         }
