@@ -2,20 +2,20 @@ package com.ndu.passwordstorage;
 
 import android.app.Application;
 
-import com.ndu.passwordstorage.data.PasswordDatas;
-import com.ndu.passwordstorage.data.PasswordDatasImpl;
+import com.ndu.passwordstorage.data.PasswordDatabase;
+import com.ndu.passwordstorage.data.PasswordDatabaseImpl;
 
 public final class MainApp extends Application {
 
-    private static PasswordDatas passwordDatas;
+    private static PasswordDatabase passwordDatabase;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        passwordDatas = new PasswordDatasImpl();
+        passwordDatabase = new PasswordDatabaseImpl(getBaseContext());
     }
 
-    public static PasswordDatas getPasswordDatas() {
-        return passwordDatas;
+    public static PasswordDatabase getPasswordDatabase() {
+        return passwordDatabase;
     }
 }

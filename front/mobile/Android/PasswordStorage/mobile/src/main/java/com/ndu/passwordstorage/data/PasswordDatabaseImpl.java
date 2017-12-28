@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
-    public DbHelperImpl(Context context) {
+public class PasswordDatabaseImpl extends SQLiteOpenHelper implements PasswordDatabase {
+    public PasswordDatabaseImpl(Context context) {
         super(context, DataContract.DATABASE_NAME, null, DataContract.DATABASE_VERSION);
     }
 
@@ -35,7 +35,7 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
     }
 
     @Override
-    public List<PasswordEntry> getEntries() {
+    public List<PasswordEntry> select() {
         List<PasswordEntry> entries = new ArrayList<>();
 
         SQLiteDatabase readableDatabase = getReadableDatabase();
@@ -71,7 +71,7 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
     }
 
     @Override
-    public boolean insertEntry(PasswordEntry passwordEntry) {
+    public boolean insert(PasswordEntry passwordEntry) {
         SQLiteDatabase writableDatabase = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -88,7 +88,7 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
     }
 
     @Override
-    public boolean updateEntry(PasswordEntry passwordEntry) {
+    public boolean update(PasswordEntry passwordEntry) {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -109,7 +109,7 @@ public class DbHelperImpl extends SQLiteOpenHelper implements DbHelper {
     }
 
     @Override
-    public boolean deleteEntry(PasswordEntry passwordEntry) {
+    public boolean delete(PasswordEntry passwordEntry) {
         SQLiteDatabase db = getWritableDatabase();
 
         String selection = DataContract.DataEntry.COLUMN_NAME_KEY + " = ?";

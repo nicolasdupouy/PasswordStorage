@@ -4,7 +4,6 @@ import com.ndu.passwordstorage.model.PasswordEntry;
 import com.ndu.passwordstorage.screen.DisplayListActivity;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +11,6 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 
 import java.util.List;
 
@@ -22,7 +20,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
-public class DbHelperImplTest {
+public class PasswordDatabaseImplTest {
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
@@ -62,21 +60,21 @@ public class DbHelperImplTest {
                 "password_3_updated");
     }
 
-    private DbHelper dbHelper;
+    private PasswordDatabase passwordDatabase;
 
     @Before
     public void setUp() {
         // Given
         DisplayListActivity displayListActivity = Robolectric.setupActivity(DisplayListActivity.class);
-        dbHelper = new DbHelperImpl(displayListActivity.getApplicationContext());
+        passwordDatabase = new PasswordDatabaseImpl(displayListActivity.getApplicationContext());
     }
 
     @Test
     public void should_add_entry_on_empty_database() {
         // When
-        List<PasswordEntry> entriesBefore = dbHelper.getEntries();
-        boolean insertFirstPasswordEntry = dbHelper.insertEntry(PASSWORD_ENTRY_1);
-        List<PasswordEntry> entriesAfter = dbHelper.getEntries();
+        List<PasswordEntry> entriesBefore = passwordDatabase.select();
+        boolean insertFirstPasswordEntry = passwordDatabase.insert(PASSWORD_ENTRY_1);
+        List<PasswordEntry> entriesAfter = passwordDatabase.select();
 
         // Then
         assertThat(entriesBefore.size(), is(0));
@@ -88,11 +86,11 @@ public class DbHelperImplTest {
     @Test
     public void should_add_an_entry_only_once() {
         // When
-        List<PasswordEntry> entriesBefore = dbHelper.getEntries();
-        boolean insertFirstPasswordEntryFirstTime = dbHelper.insertEntry(PASSWORD_ENTRY_1);
-        boolean insertSecondPasswordEntry = dbHelper.insertEntry(PASSWORD_ENTRY_2);
-        boolean insertFirstPasswordEntrySecondTime = dbHelper.insertEntry(PASSWORD_ENTRY_1);
-        List<PasswordEntry> entriesAfter = dbHelper.getEntries();
+        List<PasswordEntry> entriesBefore = passwordDatabase.select();
+        boolean insertFirstPasswordEntryFirstTime = passwordDatabase.insert(PASSWORD_ENTRY_1);
+        boolean insertSecondPasswordEntry = passwordDatabase.insert(PASSWORD_ENTRY_2);
+        boolean insertFirstPasswordEntrySecondTime = passwordDatabase.insert(PASSWORD_ENTRY_1);
+        List<PasswordEntry> entriesAfter = passwordDatabase.select();
 
         // Then
         assertThat(entriesBefore.size(), is(0));
@@ -107,11 +105,11 @@ public class DbHelperImplTest {
     @Test
     public void should_update_entry_if_alone() {
         // When
-        List<PasswordEntry> entriesBefore = dbHelper.getEntries();
-        boolean insertFirstPasswordEntry = dbHelper.insertEntry(PASSWORD_ENTRY_1);
+        List<PasswordEntry> entriesBefore = passwordDatabase.select();
+        boolean insertFirstPasswordEntry = passwordDatabase.insert(PASSWORD_ENTRY_1);
 
-        boolean updateFirstPasswordEntry = dbHelper.updateEntry(PASSWORD_ENTRY_1_UPDATED);
-        List<PasswordEntry> entriesAfter = dbHelper.getEntries();
+        boolean updateFirstPasswordEntry = passwordDatabase.update(PASSWORD_ENTRY_1_UPDATED);
+        List<PasswordEntry> entriesAfter = passwordDatabase.select();
 
         // Then
         assertThat(entriesBefore.size(), is(0));
@@ -126,19 +124,19 @@ public class DbHelperImplTest {
     @Test
     public void should_update_entry_if_not_alone() {
         // When
-        boolean insertFirstPasswordEntry = dbHelper.insertEntry(PASSWORD_ENTRY_1);
-        boolean insertSecondPasswordEntry = dbHelper.insertEntry(PASSWORD_ENTRY_2);
-        boolean insertThirdPasswordEntry = dbHelper.insertEntry(PASSWORD_ENTRY_3);
-        List<PasswordEntry> entriesBeforeUpdates = dbHelper.getEntries();
+        boolean insertFirstPasswordEntry = passwordDatabase.insert(PASSWORD_ENTRY_1);
+        boolean insertSecondPasswordEntry = passwordDatabase.insert(PASSWORD_ENTRY_2);
+        boolean insertThirdPasswordEntry = passwordDatabase.insert(PASSWORD_ENTRY_3);
+        List<PasswordEntry> entriesBeforeUpdates = passwordDatabase.select();
 
-        boolean updateSecondPasswordEntry = dbHelper.updateEntry(PASSWORD_ENTRY_2_UPDATED);
-        List<PasswordEntry> entriesAfterFirstUpdate = dbHelper.getEntries();
+        boolean updateSecondPasswordEntry = passwordDatabase.update(PASSWORD_ENTRY_2_UPDATED);
+        List<PasswordEntry> entriesAfterFirstUpdate = passwordDatabase.select();
 
-        boolean updateThirdPasswordEntry = dbHelper.updateEntry(PASSWORD_ENTRY_3_UPDATED);
-        List<PasswordEntry> entriesAfterSecondUpdate = dbHelper.getEntries();
+        boolean updateThirdPasswordEntry = passwordDatabase.update(PASSWORD_ENTRY_3_UPDATED);
+        List<PasswordEntry> entriesAfterSecondUpdate = passwordDatabase.select();
 
-        boolean updateFirstPasswordEntry = dbHelper.updateEntry(PASSWORD_ENTRY_1_UPDATED);
-        List<PasswordEntry> entriesAfterThirdUpdate = dbHelper.getEntries();
+        boolean updateFirstPasswordEntry = passwordDatabase.update(PASSWORD_ENTRY_1_UPDATED);
+        List<PasswordEntry> entriesAfterThirdUpdate = passwordDatabase.select();
 
         // Then
         assertThat(entriesBeforeUpdates.size(), is(3));
@@ -172,12 +170,12 @@ public class DbHelperImplTest {
     @Test
     public void should_delete_existent_entry_if_alone() {
         // When
-        dbHelper.insertEntry(PASSWORD_ENTRY_1);
-        List<PasswordEntry> entriesBeforeDelete = dbHelper.getEntries();
+        passwordDatabase.insert(PASSWORD_ENTRY_1);
+        List<PasswordEntry> entriesBeforeDelete = passwordDatabase.select();
 
         // Then
-        boolean deleteExistentEntry = dbHelper.deleteEntry(PASSWORD_ENTRY_1);
-        List<PasswordEntry> entriesAfterDelete = dbHelper.getEntries();
+        boolean deleteExistentEntry = passwordDatabase.delete(PASSWORD_ENTRY_1);
+        List<PasswordEntry> entriesAfterDelete = passwordDatabase.select();
 
         assertThat(entriesBeforeDelete.size(), is(1));
         assertThat(entriesAfterDelete.size(), is(0));
@@ -189,14 +187,14 @@ public class DbHelperImplTest {
     @Test
     public void should_delete_existent_entry_if_not_alone() {
         // When
-        dbHelper.insertEntry(PASSWORD_ENTRY_1);
-        dbHelper.insertEntry(PASSWORD_ENTRY_2);
-        dbHelper.insertEntry(PASSWORD_ENTRY_3);
-        List<PasswordEntry> entriesBeforeDelete = dbHelper.getEntries();
+        passwordDatabase.insert(PASSWORD_ENTRY_1);
+        passwordDatabase.insert(PASSWORD_ENTRY_2);
+        passwordDatabase.insert(PASSWORD_ENTRY_3);
+        List<PasswordEntry> entriesBeforeDelete = passwordDatabase.select();
 
         // Then
-        boolean deleteExistentEntry = dbHelper.deleteEntry(PASSWORD_ENTRY_2);
-        List<PasswordEntry> entriesAfterDelete = dbHelper.getEntries();
+        boolean deleteExistentEntry = passwordDatabase.delete(PASSWORD_ENTRY_2);
+        List<PasswordEntry> entriesAfterDelete = passwordDatabase.select();
 
         assertThat(entriesBeforeDelete.size(), is(3));
         assertThat(entriesAfterDelete.size(), is(2));
@@ -208,12 +206,12 @@ public class DbHelperImplTest {
     @Test
     public void should_not_delete_inexistent_entry_if_alone() {
         // When
-        dbHelper.insertEntry(PASSWORD_ENTRY_1);
-        List<PasswordEntry> entriesBeforeDelete = dbHelper.getEntries();
+        passwordDatabase.insert(PASSWORD_ENTRY_1);
+        List<PasswordEntry> entriesBeforeDelete = passwordDatabase.select();
 
         // Then
-        boolean deleteInexistentEntry = dbHelper.deleteEntry(PASSWORD_ENTRY_2);
-        List<PasswordEntry> entriesAfterDelete = dbHelper.getEntries();
+        boolean deleteInexistentEntry = passwordDatabase.delete(PASSWORD_ENTRY_2);
+        List<PasswordEntry> entriesAfterDelete = passwordDatabase.select();
 
         assertThat(entriesBeforeDelete.size(), is(1));
         assertThat(entriesAfterDelete.size(), is(1));
@@ -225,13 +223,13 @@ public class DbHelperImplTest {
     @Test
     public void should_not_delete_inexistent_entry_if_not_alone() {
         // When
-        dbHelper.insertEntry(PASSWORD_ENTRY_1);
-        dbHelper.insertEntry(PASSWORD_ENTRY_2);
-        List<PasswordEntry> entriesBeforeDelete = dbHelper.getEntries();
+        passwordDatabase.insert(PASSWORD_ENTRY_1);
+        passwordDatabase.insert(PASSWORD_ENTRY_2);
+        List<PasswordEntry> entriesBeforeDelete = passwordDatabase.select();
 
         // Then
-        boolean deleteInexistentEntry = dbHelper.deleteEntry(PASSWORD_ENTRY_3);
-        List<PasswordEntry> entriesAfterDelete = dbHelper.getEntries();
+        boolean deleteInexistentEntry = passwordDatabase.delete(PASSWORD_ENTRY_3);
+        List<PasswordEntry> entriesAfterDelete = passwordDatabase.select();
 
         assertThat(entriesBeforeDelete.size(), is(2));
         assertThat(entriesAfterDelete.size(), is(2));

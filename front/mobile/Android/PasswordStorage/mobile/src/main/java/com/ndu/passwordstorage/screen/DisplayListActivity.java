@@ -35,7 +35,7 @@ public class DisplayListActivity extends ListActivity {
 
     @NonNull
     private List<String> fillMemoList() {
-        List<PasswordEntry> passwordEntries = MainApp.getPasswordDatas().readDatas();
+        List<PasswordEntry> passwordEntries = MainApp.getPasswordDatabase().select();
         List<String> names = new ArrayList<>();
         for (PasswordEntry entry : passwordEntries) {
             names.add(entry.getSite() + "/"
@@ -54,7 +54,7 @@ public class DisplayListActivity extends ListActivity {
     private void displayMemo(int position) {
         Intent memoActivityIntent = new Intent(this, MemoActivity.class);
 
-        List<PasswordEntry> passwordEntries = MainApp.getPasswordDatas().readDatas();
+        List<PasswordEntry> passwordEntries = MainApp.getPasswordDatabase().select();
         PasswordEntry passwordEntry = passwordEntries.get(position);
         passwordEntry.putInfos(memoActivityIntent);
 
@@ -66,7 +66,7 @@ public class DisplayListActivity extends ListActivity {
         if (requestCode == MemoActivity.DISPLAY_MEMO
                 && resultCode == Activity.RESULT_OK) {
             PasswordEntry passwordEntryUpdated = PasswordEntry.readInfos(data);
-            MainApp.getPasswordDatas().update(passwordEntryUpdated);
+            MainApp.getPasswordDatabase().update(passwordEntryUpdated);
 
             refreshDisplay();
         }
