@@ -11,6 +11,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 
 import java.util.List;
 
@@ -21,9 +22,6 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
 public class PasswordDatabaseImplTest {
-
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     private static PasswordEntry PASSWORD_ENTRY_1 = PasswordEntry.makeNew(
             "site_1",
@@ -65,8 +63,7 @@ public class PasswordDatabaseImplTest {
     @Before
     public void setUp() {
         // Given
-        DisplayListActivity displayListActivity = Robolectric.setupActivity(DisplayListActivity.class);
-        passwordDatabase = new PasswordDatabaseImpl(displayListActivity.getApplicationContext());
+        passwordDatabase = new PasswordDatabaseImpl(RuntimeEnvironment.application);
     }
 
     @Test
