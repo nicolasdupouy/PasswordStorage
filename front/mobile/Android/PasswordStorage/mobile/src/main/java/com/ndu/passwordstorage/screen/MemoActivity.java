@@ -31,8 +31,6 @@ public class MemoActivity extends AppCompatActivity {
     EditText password;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
 
     private PasswordEntry passwordEntry;
     private Unbinder unbinder;
@@ -45,7 +43,6 @@ public class MemoActivity extends AppCompatActivity {
 
         readInfos();
         setToolbar();
-        setCreateAction();
     }
 
     private void readInfos() {
@@ -59,16 +56,6 @@ public class MemoActivity extends AppCompatActivity {
 
     private void setToolbar() {
         setSupportActionBar(toolbar);
-    }
-
-    private void setCreateAction() {
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override

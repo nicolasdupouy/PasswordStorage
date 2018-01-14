@@ -61,7 +61,5 @@
                 android:text="@string/update"
                 android:onClick="update"/>
         </LinearLayout>
-
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>
