@@ -36,7 +36,6 @@ public class DisplayListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_list);
         unbinder = ButterKnife.bind(this);
-
         passwordDatabase = new PasswordDatabaseImpl(getApplicationContext());
 
         refreshDisplay();
@@ -44,14 +43,9 @@ public class DisplayListActivity extends ListActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        unbinder.unbind();
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
+        unbinder.unbind();
         passwordDatabase.closeDatabase();
     }
 
