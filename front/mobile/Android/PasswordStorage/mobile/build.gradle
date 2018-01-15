@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.ndu.passwordstorage"
         minSdkVersion 16
@@ -15,6 +14,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
         }
     }
 }
@@ -36,17 +40,14 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     // Testing - for JSON testing
-    testCompile "org.robolectric:robolectric:3.0"
+    testImplementation "org.robolectric:robolectric:3.5.1"
     testCompile "org.apache.maven:maven-ant-tasks:2.1.3"
 
     // Testing - Mockito
     testCompile 'org.mockito:mockito-core:1.10.19'
     androidTestCompile 'org.hamcrest:hamcrest-library:1.1'
-    
-    // Dependency injection
-    compile 'com.google.dagger:dagger:2.11'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
-    provided 'javax.annotation:jsr250-api:1.0'
+
     // Binding
-    compile group: 'com.jakewharton', name: 'butterknife', version: '7.0.1'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

@@ -5,39 +5,48 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.ndu.passwordstorage.MainApp;
 import com.ndu.passwordstorage.R;
-import com.ndu.passwordstorage.data.impl.PasswordDatasImpl;
-import com.ndu.passwordstorage.di.Injectable;
+import com.ndu.passwordstorage.data.PasswordDatabase;
+import com.ndu.passwordstorage.data.PasswordDatabaseImpl;
 import com.ndu.passwordstorage.model.PasswordEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
-public class DisplayListActivity extends ListActivity implements Injectable {
+public class DisplayListActivity extends ListActivity {
 
-    @Inject
-    PasswordDatasImpl passwordDatas;
+    private PasswordDatabase passwordDatabase;
+    private Unbinder unbinder;
 
-    @Override
-    public void injectMe() {
-        ((MainApp) getApplication()).getAppComponent().inject(this);
-    }
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        injectMe();
-
         setContentView(R.layout.activity_display_list);
+        unbinder = ButterKnife.bind(this);
+        passwordDatabase = new PasswordDatabaseImpl(getApplicationContext());
+
         refreshDisplay();
+        setCreateAction();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+        passwordDatabase.closeDatabase();
     }
 
     private void refreshDisplay() {
@@ -49,7 +58,7 @@ public class DisplayListActivity extends ListActivity implements Injectable {
 
     @NonNull
     private List<String> fillMemoList() {
-        List<PasswordEntry> passwordEntries = passwordDatas.readDatas();
+        List<PasswordEntry> passwordEntries = passwordDatabase.select();
         List<String> names = new ArrayList<>();
         for (PasswordEntry entry : passwordEntries) {
             names.add(entry.getSite() + "/"
@@ -59,16 +68,34 @@ public class DisplayListActivity extends ListActivity implements Injectable {
         return names;
     }
 
+    private void setCreateAction() {
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createMemo();
+            }
+        });
+    }
+
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         displayMemo(position);
     }
 
+    private void createMemo() {
+        Intent memoActivityIntent = new Intent(this, MemoActivity.class);
+
+        PasswordEntry passwordEntry = PasswordEntry.makeNew();
+        passwordEntry.putInfos(memoActivityIntent);
+
+        startActivityForResult(memoActivityIntent, MemoActivity.CREATE_MEMO);
+    }
+
     private void displayMemo(int position) {
         Intent memoActivityIntent = new Intent(this, MemoActivity.class);
 
-        List<PasswordEntry> passwordEntries = passwordDatas.readDatas();
+        List<PasswordEntry> passwordEntries = passwordDatabase.select();
         PasswordEntry passwordEntry = passwordEntries.get(position);
         passwordEntry.putInfos(memoActivityIntent);
 
@@ -77,10 +104,15 @@ public class DisplayListActivity extends ListActivity implements Injectable {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MemoActivity.DISPLAY_MEMO
-                && resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
             PasswordEntry passwordEntryUpdated = PasswordEntry.readInfos(data);
-            passwordDatas.update(passwordEntryUpdated);
+
+            if (requestCode == MemoActivity.CREATE_MEMO) {
+                passwordDatabase.insert(passwordEntryUpdated);
+            }
+            else if (requestCode == MemoActivity.DISPLAY_MEMO) {
+                passwordDatabase.update(passwordEntryUpdated);
+            }
 
             refreshDisplay();
         }

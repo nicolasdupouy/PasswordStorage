@@ -1,7 +1,8 @@
 package com.ndu.passwordstorage.model;
 
 import android.content.Intent;
-import android.os.Bundle;
+
+import com.ndu.passwordstorage.data.DataContract;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,11 +10,7 @@ import java.util.Locale;
 import java.util.Random;
 
 public class PasswordEntry {
-    private static final String KEY = "key";
-    private static final String SITE = "site";
-    private static final String LOGIN = "login";
-    private static final String PASSWORD = "password";
-
+    private int id;
     private String key;
     private String site;
     private String login;
@@ -23,6 +20,28 @@ public class PasswordEntry {
 
     private PasswordEntry() {}
 
+    public static PasswordEntry get(int id, String key, String site, String login, String password) {
+        PasswordEntry pe = new PasswordEntry();
+        pe.id = id;
+        pe.key = key;
+        pe.site = site;
+        pe.login = login;
+        pe.password = password;
+
+        return pe;
+    }
+
+    public static PasswordEntry get(PasswordEntry passwordEntry) {
+        PasswordEntry pe = new PasswordEntry();
+        pe.id = passwordEntry.id;
+        pe.key = passwordEntry.key;
+        pe.site = passwordEntry.site;
+        pe.login = passwordEntry.login;
+        pe.password = passwordEntry.password;
+
+        return pe;
+    }
+
     public static PasswordEntry makeNew(String site, String login, String password) {
         PasswordEntry passwordEntry = PasswordEntry.makeNew();
         passwordEntry.update(site, login, password);
@@ -30,7 +49,7 @@ public class PasswordEntry {
         return passwordEntry;
     }
 
-    private static PasswordEntry makeNew() {
+    public static PasswordEntry makeNew() {
         PasswordEntry passwordEntry = new PasswordEntry();
         passwordEntry.key = createKey();
 
@@ -66,18 +85,18 @@ public class PasswordEntry {
     }
 
     public void putInfos(Intent intent) {
-        intent.putExtra(KEY, this.key);
-        intent.putExtra(SITE, this.site);
-        intent.putExtra(LOGIN, this.login);
-        intent.putExtra(PASSWORD, this.password);
+        intent.putExtra(DataContract.DataEntry.COLUMN_NAME_KEY, this.key);
+        intent.putExtra(DataContract.DataEntry.COLUMN_NAME_SITE, this.site);
+        intent.putExtra(DataContract.DataEntry.COLUMN_NAME_LOGIN, this.login);
+        intent.putExtra(DataContract.DataEntry.COLUMN_NAME_PASSWORD, this.password);
     }
 
     public static PasswordEntry readInfos(Intent intent) {
         PasswordEntry passwordEntry = new PasswordEntry();
-        passwordEntry.key = intent.getStringExtra(KEY);
-        passwordEntry.site = intent.getStringExtra(SITE);
-        passwordEntry.login = intent.getStringExtra(LOGIN);
-        passwordEntry.password = intent.getStringExtra(PASSWORD);
+        passwordEntry.key = intent.getStringExtra(DataContract.DataEntry.COLUMN_NAME_KEY);
+        passwordEntry.site = intent.getStringExtra(DataContract.DataEntry.COLUMN_NAME_SITE);
+        passwordEntry.login = intent.getStringExtra(DataContract.DataEntry.COLUMN_NAME_LOGIN);
+        passwordEntry.password = intent.getStringExtra(DataContract.DataEntry.COLUMN_NAME_PASSWORD);
 
         return passwordEntry;
     }
@@ -96,5 +115,27 @@ public class PasswordEntry {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PasswordEntry that = (PasswordEntry) o;
+
+        if (key != null ? !key.equals(that.key) : that.key != null) return false;
+        if (site != null ? !site.equals(that.site) : that.site != null) return false;
+        if (login != null ? !login.equals(that.login) : that.login != null) return false;
+        return password != null ? password.equals(that.password) : that.password == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = key != null ? key.hashCode() : 0;
+        result = 31 * result + (site != null ? site.hashCode() : 0);
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        return result;
     }
 }

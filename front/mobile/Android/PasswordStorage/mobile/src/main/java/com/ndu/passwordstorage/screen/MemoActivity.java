@@ -14,36 +14,35 @@ import android.widget.TextView;
 import com.ndu.passwordstorage.R;
 import com.ndu.passwordstorage.model.PasswordEntry;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class MemoActivity extends AppCompatActivity {
 
     public static final int DISPLAY_MEMO = 1;
     public static final int CREATE_MEMO = 2;
 
-    @Bind(R.id.site)
+    @BindView(R.id.site)
     EditText site;
-    @Bind(R.id.login)
+    @BindView(R.id.login)
     EditText login;
-    @Bind(R.id.password)
+    @BindView(R.id.password)
     EditText password;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.fab)
-    FloatingActionButton fab;
 
     private PasswordEntry passwordEntry;
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
 
         readInfos();
         setToolbar();
-        setCreateAction();
     }
 
     private void readInfos() {
@@ -59,20 +58,10 @@ public class MemoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    private void setCreateAction() {
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-    }
-
     @Override
-    protected void onStop() {
-        super.onStop();
-        ButterKnife.unbind(this);
+    protected void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 
     public void cancel(View view) {
