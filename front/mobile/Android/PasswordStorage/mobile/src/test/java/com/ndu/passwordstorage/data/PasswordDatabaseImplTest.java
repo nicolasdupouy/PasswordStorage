@@ -1,15 +1,10 @@
 package com.ndu.passwordstorage.data;
 
 import com.ndu.passwordstorage.model.PasswordEntry;
-import com.ndu.passwordstorage.screen.DisplayListActivity;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
