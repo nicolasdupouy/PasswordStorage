@@ -49,7 +49,7 @@ public class PasswordEntry {
         return passwordEntry;
     }
 
-    private static PasswordEntry makeNew() {
+    public static PasswordEntry makeNew() {
         PasswordEntry passwordEntry = new PasswordEntry();
         passwordEntry.key = createKey();
 

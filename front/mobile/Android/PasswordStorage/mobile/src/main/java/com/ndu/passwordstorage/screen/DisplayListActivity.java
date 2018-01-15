@@ -78,8 +78,7 @@ public class DisplayListActivity extends ListActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                createMemo();
             }
         });
     }
@@ -88,6 +87,15 @@ public class DisplayListActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         displayMemo(position);
+    }
+
+    private void createMemo() {
+        Intent memoActivityIntent = new Intent(this, MemoActivity.class);
+
+        PasswordEntry passwordEntry = PasswordEntry.makeNew();
+        passwordEntry.putInfos(memoActivityIntent);
+
+        startActivityForResult(memoActivityIntent, MemoActivity.CREATE_MEMO);
     }
 
     private void displayMemo(int position) {
@@ -102,10 +110,15 @@ public class DisplayListActivity extends ListActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MemoActivity.DISPLAY_MEMO
-                && resultCode == Activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
             PasswordEntry passwordEntryUpdated = PasswordEntry.readInfos(data);
-            passwordDatabase.update(passwordEntryUpdated);
+
+            if (requestCode == MemoActivity.CREATE_MEMO) {
+                passwordDatabase.insert(passwordEntryUpdated);
+            }
+            else if (requestCode == MemoActivity.DISPLAY_MEMO) {
+                passwordDatabase.update(passwordEntryUpdated);
+            }
 
             refreshDisplay();
         }
