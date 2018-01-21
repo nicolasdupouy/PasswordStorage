@@ -138,4 +138,11 @@ public class PasswordEntry {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return this.getSite() + "/"
+                + this.getLogin() + "/"
+                + this.getPassword();
+    }
 }

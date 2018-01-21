@@ -60,9 +60,7 @@ public class DisplayListActivity extends ListActivity {
         List<PasswordEntry> passwordEntries = passwordDatabase.select();
         List<String> names = new ArrayList<>();
         for (PasswordEntry entry : passwordEntries) {
-            names.add(entry.getSite() + "/"
-                    + entry.getLogin() + "/"
-                    + entry.getPassword());
+            names.add(entry.toString());
         }
         return names;
     }
