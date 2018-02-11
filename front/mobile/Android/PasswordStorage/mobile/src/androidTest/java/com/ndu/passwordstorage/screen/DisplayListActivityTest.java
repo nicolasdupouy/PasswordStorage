@@ -1,8 +1,6 @@
 package com.ndu.passwordstorage.screen;
 
-import android.support.test.espresso.DataInteraction;
 import android.support.test.filters.LargeTest;
-import android.support.test.filters.SmallTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -17,19 +15,17 @@ import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.IsNot.not;
 
 @RunWith(AndroidJUnit4.class)
-//@SmallTest
 @LargeTest
 public class DisplayListActivityTest {
 
@@ -37,26 +33,42 @@ public class DisplayListActivityTest {
             "Non Existent Site",
             "Non Existent Login",
             "Non Existent Password");
-    private static final String NON_EXISTENT_ITEM = "Non Existent Site/Non Existent Login/Non Existent Password";
+    private static PasswordEntry EXISTENT_PASSWORD_ENTRY = PasswordEntry.makeNew(
+            "Existent Site",
+            "Existent Login",
+            "Existent Password");
 
     @Rule
     public ActivityTestRule<DisplayListActivity> mActivityRule = new ActivityTestRule<>(DisplayListActivity.class);
 
     @Test
-    public void should_() {
-        onData(allOf(is(instanceOf(String.class)), is(NON_EXISTENT_PASSWORD_ENTRY.toString())))
-                .check(matches(withText(NON_EXISTENT_ITEM)));
-                //.perform(click());
+    public void test_is_displayed() {
+        // OK
+        checkEntryDisplayed(EXISTENT_PASSWORD_ENTRY);
+        // KO
+        //checkEntryDisplayed(NON_EXISTENT_PASSWORD_ENTRY);
+    }
+
+    @Test
+    public void test_exists() {
+        // OK
+        checkEntryExists(EXISTENT_PASSWORD_ENTRY);
+        // KO
+        //checkEntryExists(NON_EXISTENT_PASSWORD_ENTRY);
+    }
+
+    @Test
+    public void test_dont_exists() {
+        // OK
+        checkEntryDoesNotExist(NON_EXISTENT_PASSWORD_ENTRY);
+        // KO
+        //checkEntryDoesNotExist(EXISTENT_PASSWORD_ENTRY);
 
     }
 
     @Test
     public void should_add_and_delete_inexistent_entry() {
         addEntry(NON_EXISTENT_PASSWORD_ENTRY);
-
-        onData(allOf(is(instanceOf(String.class)), is(NON_EXISTENT_ITEM))).perform(click());
-
-        //onRow(NON_EXISTENT_ITEM).check(doesNotExist());
     }
 
     @Test
@@ -79,11 +91,21 @@ public class DisplayListActivityTest {
         onView(withText("Update")).perform(click());
     }
 
+    private void checkEntryDisplayed(PasswordEntry passwordEntry) {
+        onData(allOf(is(instanceOf(String.class)), is(passwordEntry.toString()))).check(matches(isDisplayed()));
+    }
+
+    private void checkEntryExists(PasswordEntry passwordEntry) {
+        onData(anything())
+                .check(matches(withText(passwordEntry.toString())));
+    }
+
+    private void checkEntryDoesNotExist(PasswordEntry passwordEntry) {
+        onData(anything())
+                .check(matches(not(withText(passwordEntry.toString()))));
+    }
+
     private void deleteEntry() {
 
     }
-
-    /*private static DataInteraction onRow(String str) {
-        return onData(hasEntry(equalTo(DisplayListActivity.ROW_TEXT), is(str)));
-    }*/
 }
