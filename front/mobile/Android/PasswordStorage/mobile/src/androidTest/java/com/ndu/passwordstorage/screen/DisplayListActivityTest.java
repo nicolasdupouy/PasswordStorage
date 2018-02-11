@@ -37,6 +37,7 @@ public class DisplayListActivityTest {
             "Existent Site",
             "Existent Login",
             "Existent Password");
+    private static final String UPDATE_BUTTON_CONTENT = "Update";
 
     @Rule
     public ActivityTestRule<DisplayListActivity> mActivityRule = new ActivityTestRule<>(DisplayListActivity.class);
@@ -88,7 +89,7 @@ public class DisplayListActivityTest {
         onView(withId(R.id.login)).perform(typeText(passwordEntry.getLogin()));
         onView(withId(R.id.password)).perform(typeText(passwordEntry.getPassword()));
 
-        onView(withText("Update")).perform(click());
+        onView(withText(UPDATE_BUTTON_CONTENT)).perform(click());
     }
 
     private void checkEntryDisplayed(PasswordEntry passwordEntry) {
