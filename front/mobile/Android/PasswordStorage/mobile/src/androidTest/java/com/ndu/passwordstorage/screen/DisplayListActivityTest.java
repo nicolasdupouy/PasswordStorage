@@ -69,7 +69,13 @@ public class DisplayListActivityTest {
 
     @Test
     public void should_add_and_delete_inexistent_entry() {
+        checkEntryDoesNotExist(NON_EXISTENT_PASSWORD_ENTRY);
         addEntry(NON_EXISTENT_PASSWORD_ENTRY);
+
+        checkEntryExists(NON_EXISTENT_PASSWORD_ENTRY);
+
+        deleteEntry(NON_EXISTENT_PASSWORD_ENTRY);
+        checkEntryDoesNotExist(NON_EXISTENT_PASSWORD_ENTRY);
     }
 
     @Test
@@ -92,6 +98,10 @@ public class DisplayListActivityTest {
         onView(withText(UPDATE_BUTTON_CONTENT)).perform(click());
     }
 
+    private void deleteEntry(PasswordEntry passwordEntry) {
+
+    }
+
     private void checkEntryDisplayed(PasswordEntry passwordEntry) {
         onData(allOf(is(instanceOf(String.class)), is(passwordEntry.toString()))).check(matches(isDisplayed()));
     }
@@ -104,9 +114,5 @@ public class DisplayListActivityTest {
     private void checkEntryDoesNotExist(PasswordEntry passwordEntry) {
         onData(anything())
                 .check(matches(not(withText(passwordEntry.toString()))));
-    }
-
-    private void deleteEntry() {
-
     }
 }
