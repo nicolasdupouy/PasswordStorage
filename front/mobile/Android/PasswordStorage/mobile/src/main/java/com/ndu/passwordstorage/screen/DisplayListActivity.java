@@ -48,6 +48,27 @@ public class DisplayListActivity extends ListActivity {
         passwordDatabase.closeDatabase();
     }
 
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        displayMemo(position);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            PasswordEntry passwordEntryUpdated = PasswordEntry.readInfos(data);
+
+            if (requestCode == MemoActivity.CREATE_MEMO) {
+                passwordDatabase.insert(passwordEntryUpdated);
+            } else if (requestCode == MemoActivity.DISPLAY_MEMO) {
+                passwordDatabase.update(passwordEntryUpdated);
+            }
+
+            refreshDisplay();
+        }
+    }
+
     private void refreshDisplay() {
         ListView listView = getListView();
         List<String> names = fillMemoList();
@@ -74,12 +95,6 @@ public class DisplayListActivity extends ListActivity {
         });
     }
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        displayMemo(position);
-    }
-
     private void createMemo() {
         Intent memoActivityIntent = new Intent(this, MemoActivity.class);
 
@@ -97,21 +112,5 @@ public class DisplayListActivity extends ListActivity {
         passwordEntry.putInfos(memoActivityIntent);
 
         startActivityForResult(memoActivityIntent, MemoActivity.DISPLAY_MEMO);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            PasswordEntry passwordEntryUpdated = PasswordEntry.readInfos(data);
-
-            if (requestCode == MemoActivity.CREATE_MEMO) {
-                passwordDatabase.insert(passwordEntryUpdated);
-            }
-            else if (requestCode == MemoActivity.DISPLAY_MEMO) {
-                passwordDatabase.update(passwordEntryUpdated);
-            }
-
-            refreshDisplay();
-        }
     }
 }
