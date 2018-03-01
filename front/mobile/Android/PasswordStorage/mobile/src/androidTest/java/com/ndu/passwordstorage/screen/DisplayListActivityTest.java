@@ -17,13 +17,19 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.openContextualActionModeOverflowMenu;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.longClick;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.core.IsNot.not;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -70,17 +76,23 @@ public class DisplayListActivityTest {
     }
 
     private void deleteEntry(PasswordEntry passwordEntry) {
+        findAndLongClickEntry(passwordEntry);
+        onView(withText(R.string.delete)).perform(click());
+    }
 
+    private void findAndLongClickEntry(PasswordEntry passwordEntry) {
+        onData(allOf(is(instanceOf(String.class)), is(passwordEntry.toString())))
+                .perform(scrollTo(), longClick());
     }
 
     private void checkEntryExists(PasswordEntry passwordEntry) {
-        onData(anything())
-                .check(matches(withText(passwordEntry.toString())));
+        boolean exists = doesListContains(passwordEntry);
+        Assert.assertTrue(exists);
     }
 
     private void checkEntryDoesNotExist(PasswordEntry passwordEntry) {
-        boolean existsBefore = doesListContains(passwordEntry);
-        Assert.assertFalse(existsBefore);
+        boolean exists = doesListContains(passwordEntry);
+        Assert.assertFalse(exists);
     }
 
     private boolean doesListContains(PasswordEntry passwordEntry) {
