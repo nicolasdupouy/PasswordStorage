@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -24,6 +27,8 @@ import butterknife.Unbinder;
 
 public class DisplayListActivity extends ListActivity {
 
+    private static final int CONTEXT_MENU_DELETE_ID = 1;
+
     private PasswordDatabase passwordDatabase;
     private Unbinder unbinder;
 
@@ -37,6 +42,7 @@ public class DisplayListActivity extends ListActivity {
         unbinder = ButterKnife.bind(this);
         passwordDatabase = new PasswordDatabaseImpl(getApplicationContext());
 
+        registerForContextMenu(getListView());
         refreshDisplay();
         setCreateAction();
     }
@@ -52,6 +58,23 @@ public class DisplayListActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         displayMemo(position);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        menu.add(0, CONTEXT_MENU_DELETE_ID, 0, R.string.delete);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getItemId() == CONTEXT_MENU_DELETE_ID) {
+            int currentPositionInList = ((AdapterView.AdapterContextMenuInfo)item.getMenuInfo()).position;
+            deleteMemo(currentPositionInList);
+            refreshDisplay();
+        }
+
+        return super.onContextItemSelected(item);
     }
 
     @Override
@@ -102,6 +125,12 @@ public class DisplayListActivity extends ListActivity {
         passwordEntry.putInfos(memoActivityIntent);
 
         startActivityForResult(memoActivityIntent, MemoActivity.CREATE_MEMO);
+    }
+
+    private void deleteMemo(int position) {
+        List<PasswordEntry> passwordEntries = passwordDatabase.select();
+        PasswordEntry passwordEntry = passwordEntries.get(position);
+        passwordDatabase.delete(passwordEntry);
     }
 
     private void displayMemo(int position) {
