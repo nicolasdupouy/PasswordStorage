@@ -1,6 +1,5 @@
 package com.ndu.passwordstorage.screen;
 
-import android.support.test.filters.LargeTest;
 import android.support.test.filters.SmallTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;

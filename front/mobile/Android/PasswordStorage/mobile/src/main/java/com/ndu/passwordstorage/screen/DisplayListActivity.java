@@ -18,8 +18,8 @@ import com.ndu.passwordstorage.data.PasswordDatabase;
 import com.ndu.passwordstorage.data.PasswordDatabaseImpl;
 import com.ndu.passwordstorage.model.PasswordEntry;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -101,21 +101,14 @@ public class DisplayListActivity extends ListActivity {
 
     @NonNull
     private List<String> fillMemoList() {
-        List<PasswordEntry> passwordEntries = passwordDatabase.select();
-        List<String> names = new ArrayList<>();
-        for (PasswordEntry entry : passwordEntries) {
-            names.add(entry.toString());
-        }
-        return names;
+        return passwordDatabase.select()
+                .stream()
+                .map(PasswordEntry::toString)
+                .collect(Collectors.toList());
     }
 
     private void setCreateAction() {
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createMemo();
-            }
-        });
+        fab.setOnClickListener(view -> createMemo());
     }
 
     private void createMemo() {
