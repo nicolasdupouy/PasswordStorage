@@ -18,6 +18,8 @@ import com.ndu.passwordstorage.data.PasswordDatabase;
 import com.ndu.passwordstorage.data.PasswordDatabaseImpl;
 import com.ndu.passwordstorage.model.PasswordEntry;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +32,7 @@ public class DisplayListActivity extends ListActivity {
     private static final int CONTEXT_MENU_DELETE_ID = 1;
 
     private PasswordDatabase passwordDatabase;
+    private List<String> entries = Collections.emptyList();
     private Unbinder unbinder;
 
     @BindView(R.id.fab)
@@ -43,7 +46,8 @@ public class DisplayListActivity extends ListActivity {
         passwordDatabase = new PasswordDatabaseImpl(getApplicationContext());
 
         registerForContextMenu(getListView());
-        refreshDisplay();
+        updateEntryList();
+        defineDisplay();
         setCreateAction();
     }
 
@@ -71,7 +75,7 @@ public class DisplayListActivity extends ListActivity {
         if (item.getItemId() == CONTEXT_MENU_DELETE_ID) {
             int currentPositionInList = ((AdapterView.AdapterContextMenuInfo)item.getMenuInfo()).position;
             deleteMemo(currentPositionInList);
-            refreshDisplay();
+            updateEntryList();
         }
 
         return super.onContextItemSelected(item);
@@ -88,15 +92,13 @@ public class DisplayListActivity extends ListActivity {
                 passwordDatabase.update(passwordEntryUpdated);
             }
 
-            refreshDisplay();
+            updateEntryList();
         }
     }
 
-    private void refreshDisplay() {
-        ListView listView = getListView();
-        List<String> names = fillMemoList();
-        ArrayAdapter<String> namesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
-        listView.setAdapter(namesAdapter);
+    private void updateEntryList() {
+        this.entries = fillMemoList();
+
     }
 
     @NonNull
@@ -105,6 +107,11 @@ public class DisplayListActivity extends ListActivity {
                 .stream()
                 .map(PasswordEntry::toString)
                 .collect(Collectors.toList());
+    }
+
+    private void defineDisplay() {
+        ArrayAdapter<String> namesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, this.entries);
+        getListView().setAdapter(namesAdapter);
     }
 
     private void setCreateAction() {
