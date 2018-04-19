@@ -18,7 +18,6 @@ import com.ndu.passwordstorage.data.PasswordDatabase;
 import com.ndu.passwordstorage.data.PasswordDatabaseImpl;
 import com.ndu.passwordstorage.model.PasswordEntry;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,7 +31,7 @@ public class DisplayListActivity extends ListActivity {
     private static final int CONTEXT_MENU_DELETE_ID = 1;
 
     private PasswordDatabase passwordDatabase;
-    private List<String> entries = Collections.emptyList();
+    private ArrayAdapter<String> namesAdapter;
     private Unbinder unbinder;
 
     @BindView(R.id.fab)
@@ -46,9 +45,25 @@ public class DisplayListActivity extends ListActivity {
         passwordDatabase = new PasswordDatabaseImpl(getApplicationContext());
 
         registerForContextMenu(getListView());
-        updateEntryList();
         defineDisplay();
         setCreateAction();
+    }
+
+    private void defineDisplay() {
+        this.namesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, fillMemoList());
+        getListView().setAdapter(namesAdapter);
+    }
+
+    @NonNull
+    private List<String> fillMemoList() {
+        return passwordDatabase.select()
+                .stream()
+                .map(PasswordEntry::toString)
+                .collect(Collectors.toList());
+    }
+
+    private void setCreateAction() {
+        fab.setOnClickListener(view -> createMemo());
     }
 
     @Override
@@ -97,25 +112,9 @@ public class DisplayListActivity extends ListActivity {
     }
 
     private void updateEntryList() {
-        this.entries = fillMemoList();
+        this.namesAdapter.clear();
+        this.namesAdapter.addAll(fillMemoList());
 
-    }
-
-    @NonNull
-    private List<String> fillMemoList() {
-        return passwordDatabase.select()
-                .stream()
-                .map(PasswordEntry::toString)
-                .collect(Collectors.toList());
-    }
-
-    private void defineDisplay() {
-        ArrayAdapter<String> namesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, this.entries);
-        getListView().setAdapter(namesAdapter);
-    }
-
-    private void setCreateAction() {
-        fab.setOnClickListener(view -> createMemo());
     }
 
     private void createMemo() {
