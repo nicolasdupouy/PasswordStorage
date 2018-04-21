@@ -67,12 +67,6 @@ public class DisplayListActivity extends ListActivity {
     }
 
     @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        displayMemo(position);
-    }
-
-    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         menu.add(0, CONTEXT_MENU_DELETE_ID, 0, R.string.delete);
@@ -125,7 +119,7 @@ public class DisplayListActivity extends ListActivity {
         passwordDatabase.delete(passwordEntry);
     }
 
-    private void displayMemo(int position) {
+    public void displayMemo(int position) {
         Intent memoActivityIntent = new Intent(this, MemoActivity.class);
 
         List<PasswordEntry> passwordEntries = passwordDatabase.select();
