@@ -136,9 +136,8 @@ public class DisplayListActivityTest {
             return false;
 
         for (int i = 0; i < adapter.getCount(); i++) {
-            String item = (String) adapter.getItem(i);
-            if (passwordEntry.toString()
-                    .equals(item)) {
+            PasswordEntry item = (PasswordEntry) adapter.getItem(i);
+            if (passwordEntry.equals(item)) {
                 return true;
             }
         }
