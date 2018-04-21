@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.ndu.passwordstorage.R;
+import com.ndu.passwordstorage.adapter.DisplayListEntryAdapter;
 import com.ndu.passwordstorage.data.PasswordDatabase;
 import com.ndu.passwordstorage.data.PasswordDatabaseImpl;
 import com.ndu.passwordstorage.model.PasswordEntry;
@@ -31,7 +32,7 @@ public class DisplayListActivity extends ListActivity {
     private static final int CONTEXT_MENU_DELETE_ID = 1;
 
     private PasswordDatabase passwordDatabase;
-    private ArrayAdapter<String> namesAdapter;
+    private ArrayAdapter<PasswordEntry> namesAdapter;
     private Unbinder unbinder;
 
     @BindView(R.id.fab)
@@ -50,16 +51,8 @@ public class DisplayListActivity extends ListActivity {
     }
 
     private void defineDisplay() {
-        this.namesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, fillMemoList());
+        this.namesAdapter = new DisplayListEntryAdapter(this, passwordDatabase.select());
         getListView().setAdapter(namesAdapter);
-    }
-
-    @NonNull
-    private List<String> fillMemoList() {
-        return passwordDatabase.select()
-                .stream()
-                .map(PasswordEntry::toString)
-                .collect(Collectors.toList());
     }
 
     private void setCreateAction() {
@@ -113,7 +106,7 @@ public class DisplayListActivity extends ListActivity {
 
     private void updateEntryList() {
         this.namesAdapter.clear();
-        this.namesAdapter.addAll(fillMemoList());
+        this.namesAdapter.addAll(passwordDatabase.select());
 
     }
 
