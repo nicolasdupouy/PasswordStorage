@@ -3,9 +3,12 @@ package com.ndu.passwordstorage.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -29,21 +32,18 @@ public class DisplayListEntryAdapter extends ArrayAdapter<PasswordEntry> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if (convertView == null) {
+        DisplayListEntryViewHolder viewHolder;
+        if (convertView != null) {
+            viewHolder = (DisplayListEntryViewHolder) convertView.getTag();
+        } else {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_display_list_entry, parent, false);
+            viewHolder = new DisplayListEntryViewHolder(convertView);
+            convertView.setTag(viewHolder);
         }
 
         PasswordEntry passwordEntry = getItem(position);
-        EditText site = convertView.findViewById(R.id.site);
-        EditText login = convertView.findViewById(R.id.login);
-        EditText password = convertView.findViewById(R.id.password);
-
-        site.setText(passwordEntry.getSite(), TextView.BufferType.NORMAL);
-        login.setText(passwordEntry.getLogin(), TextView.BufferType.NORMAL);
-        password.setText(passwordEntry.getPassword(), TextView.BufferType.NORMAL);
-
-        LinearLayout linearLayout = convertView.findViewById(R.id.lineLayout);
-        linearLayout.setOnClickListener(v -> this.displayListActivity.displayMemo(position));
+        viewHolder.fill(passwordEntry);
+        viewHolder.setClickListener(this.displayListActivity, position);
 
         return convertView;
     }

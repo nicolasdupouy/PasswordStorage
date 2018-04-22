@@ -19,9 +19,7 @@ import com.ndu.passwordstorage.data.PasswordDatabase;
 import com.ndu.passwordstorage.data.PasswordDatabaseImpl;
 import com.ndu.passwordstorage.model.PasswordEntry;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
