@@ -2,7 +2,7 @@ package com.ndu.passwordstorage.adapter;
 
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ndu.passwordstorage.R;
@@ -10,13 +10,13 @@ import com.ndu.passwordstorage.model.PasswordEntry;
 import com.ndu.passwordstorage.screen.DisplayListActivity;
 
 public class DisplayListEntryViewHolder {
-    private final LinearLayout linearLayout;
+    private final RelativeLayout linearLayout;
     private final EditText site;
     private final EditText login;
     private final EditText password;
 
     DisplayListEntryViewHolder(View convertView) {
-        this.linearLayout = convertView.findViewById(R.id.lineLayout);
+        this.linearLayout = convertView.findViewById(R.id.passwordEntryLayout);
         this.site = convertView.findViewById(R.id.site);
         this.login = convertView.findViewById(R.id.login);
         this.password = convertView.findViewById(R.id.password);
