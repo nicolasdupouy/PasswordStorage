@@ -23,15 +23,20 @@ public class DisplayListEntryViewHolder {
         this.password = convertView.findViewById(R.id.password);
     }
 
-    void fill(PasswordEntry passwordEntry, int position) {
+    void fill(DisplayListActivity displayListActivity, PasswordEntry passwordEntry, int position) {
+        this.position = position;
+        this.fillFields(passwordEntry);
+        this.setMainClickListener(displayListActivity);
+    }
+
+    private void fillFields(PasswordEntry passwordEntry) {
         this.site.setText(passwordEntry.getSite(), TextView.BufferType.NORMAL);
         this.login.setText(passwordEntry.getLogin(), TextView.BufferType.NORMAL);
         this.password.setText(passwordEntry.getPassword(), TextView.BufferType.NORMAL);
-        this.position = position;
     }
 
-    void setClickListener(DisplayListActivity displayListActivity, int position) {
-        this.linearLayout.setOnClickListener(v -> displayListActivity.displayMemo(position));
+    private void setMainClickListener(DisplayListActivity displayListActivity) {
+        this.linearLayout.setOnClickListener(v -> displayListActivity.displayMemo(this.position));
     }
 
     public Integer getPosition() {

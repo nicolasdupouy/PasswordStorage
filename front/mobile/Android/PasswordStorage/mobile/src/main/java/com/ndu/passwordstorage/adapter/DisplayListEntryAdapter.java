@@ -38,8 +38,7 @@ public class DisplayListEntryAdapter extends ArrayAdapter<PasswordEntry> {
         }
 
         PasswordEntry passwordEntry = getItem(position);
-        viewHolder.fill(passwordEntry, position);
-        viewHolder.setClickListener(this.displayListActivity, position);
+        viewHolder.fill(this.displayListActivity, passwordEntry, position);
 
         ImageButton optionButton = convertView.findViewById(R.id.optionButton);
         optionButton.setOnClickListener(v -> {
