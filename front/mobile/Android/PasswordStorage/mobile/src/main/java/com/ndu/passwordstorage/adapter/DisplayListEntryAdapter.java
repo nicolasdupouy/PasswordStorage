@@ -38,20 +38,13 @@ public class DisplayListEntryAdapter extends ArrayAdapter<PasswordEntry> {
         }
 
         PasswordEntry passwordEntry = getItem(position);
-        viewHolder.fill(this.displayListActivity, passwordEntry, position);
-
-        ImageButton optionButton = convertView.findViewById(R.id.optionButton);
-        optionButton.setOnClickListener(v -> {
-            int myPosition = viewHolder.getPosition();
-            PasswordEntry entryItem = getItem(myPosition);
-            displayAlert(entryItem);
-        });
+        viewHolder.fill(this.displayListActivity, this, passwordEntry, position);
 
         return convertView;
     }
 
 
-    private void displayAlert(PasswordEntry entryItem) {
+    void displayAlert(PasswordEntry entryItem) {
         final CharSequence[] items = {"delete", "show password"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
