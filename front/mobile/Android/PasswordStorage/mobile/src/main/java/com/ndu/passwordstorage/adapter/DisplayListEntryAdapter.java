@@ -1,18 +1,14 @@
 package com.ndu.passwordstorage.adapter;
 
-import android.content.Context;
+import android.app.AlertDialog;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.ndu.passwordstorage.R;
 import com.ndu.passwordstorage.model.PasswordEntry;
@@ -42,9 +38,27 @@ public class DisplayListEntryAdapter extends ArrayAdapter<PasswordEntry> {
         }
 
         PasswordEntry passwordEntry = getItem(position);
-        viewHolder.fill(passwordEntry);
+        viewHolder.fill(passwordEntry, position);
         viewHolder.setClickListener(this.displayListActivity, position);
 
+        ImageButton optionButton = convertView.findViewById(R.id.optionButton);
+        optionButton.setOnClickListener(v -> {
+            int myPosition = viewHolder.getPosition();
+            PasswordEntry entryItem = getItem(myPosition);
+            displayAlert(entryItem);
+        });
+
         return convertView;
+    }
+
+
+    private void displayAlert(PasswordEntry entryItem) {
+        final CharSequence[] items = {"delete", "show password"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Choose an action");
+        builder.setItems(items, (dialog, item) -> Toast.makeText(getContext(),items[item] + " " + entryItem.toString(), Toast.LENGTH_SHORT).show());
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }
