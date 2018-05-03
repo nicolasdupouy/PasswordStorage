@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ndu.passwordstorage.R;
 import com.ndu.passwordstorage.model.PasswordEntry;
@@ -30,6 +31,7 @@ public class DisplayListEntryViewHolder {
         this.position = position;
         this.fillFields(passwordEntry);
         this.setMainClickListener(displayListActivity);
+        this.setLongClickListener();
         this.setOptionButtonClickListener(displayListEntryAdapter);
     }
 
@@ -41,6 +43,10 @@ public class DisplayListEntryViewHolder {
 
     private void setMainClickListener(DisplayListActivity displayListActivity) {
         this.linearLayout.setOnClickListener(v -> displayListActivity.displayMemo(this.position));
+    }
+
+    private void setLongClickListener() {
+        this.linearLayout.setOnLongClickListener(v -> false);
     }
 
     private void setOptionButtonClickListener(DisplayListEntryAdapter displayListEntryAdapter) {
