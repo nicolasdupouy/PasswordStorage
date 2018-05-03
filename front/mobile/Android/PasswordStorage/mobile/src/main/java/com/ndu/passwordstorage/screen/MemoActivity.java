@@ -33,7 +33,7 @@ public class MemoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_memo);
+        setContentView(R.layout.activity_memo);
         unbinder = ButterKnife.bind(this);
 
         readInfos();

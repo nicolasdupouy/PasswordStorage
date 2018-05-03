@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.ndu.passwordstorage.R;
@@ -32,7 +31,7 @@ public class DisplayListEntryAdapter extends ArrayAdapter<PasswordEntry> {
         if (convertView != null) {
             viewHolder = (DisplayListEntryViewHolder) convertView.getTag();
         } else {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.activity_display_list_entry, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_display_list_entry, parent, false);
             viewHolder = new DisplayListEntryViewHolder(convertView);
             convertView.setTag(viewHolder);
         }
