@@ -109,12 +109,12 @@ public class DisplayListActivityTest {
         onView(withText(R.string.delete)).perform(click());
     }
     private void findAndLongClickEntry(PasswordEntry passwordEntry) {
-        onData(allOf(is(instanceOf(String.class)), is(passwordEntry.toString())))
+        onData(allOf(is(instanceOf(PasswordEntry.class)), is(passwordEntry)))
                 .perform(scrollTo(), longClick());
     }
 
     private void findAndClickEntry(PasswordEntry passwordEntry) {
-        onData(allOf(is(instanceOf(String.class)), is(passwordEntry.toString())))
+        onData(allOf(is(instanceOf(PasswordEntry.class)), is(passwordEntry)))
                 .perform(scrollTo(), click());
     }
 

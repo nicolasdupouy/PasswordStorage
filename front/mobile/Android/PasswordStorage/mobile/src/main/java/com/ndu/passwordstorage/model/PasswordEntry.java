@@ -124,7 +124,6 @@ public class PasswordEntry {
 
         PasswordEntry that = (PasswordEntry) o;
 
-        if (key != null ? !key.equals(that.key) : that.key != null) return false;
         if (site != null ? !site.equals(that.site) : that.site != null) return false;
         if (login != null ? !login.equals(that.login) : that.login != null) return false;
         return password != null ? password.equals(that.password) : that.password == null;
@@ -132,8 +131,7 @@ public class PasswordEntry {
 
     @Override
     public int hashCode() {
-        int result = key != null ? key.hashCode() : 0;
-        result = 31 * result + (site != null ? site.hashCode() : 0);
+        int result = site != null ? site.hashCode() : 0;
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;

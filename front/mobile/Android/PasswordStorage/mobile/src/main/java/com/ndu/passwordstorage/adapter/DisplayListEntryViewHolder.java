@@ -13,8 +13,8 @@ import com.ndu.passwordstorage.screen.DisplayListActivity;
 
 public class DisplayListEntryViewHolder {
     private final ConstraintLayout linearLayout;
-    private final EditText site;
-    private final EditText login;
+    private final TextView site;
+    private final TextView login;
     private final EditText password;
     private final ImageButton optionButton;
     private int position;
