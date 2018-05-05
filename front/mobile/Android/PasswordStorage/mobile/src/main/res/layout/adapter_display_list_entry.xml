@@ -39,6 +39,7 @@
         android:id="@+id/optionButton"
         android:layout_width="12dp"
         android:layout_height="48dp"
+        android:contentDescription="@string/options"
 
         style="?android:attr/actionOverflowButtonStyle"
         app:layout_constraintTop_toTopOf="parent"
