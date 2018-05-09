@@ -14,12 +14,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.ndu.passwordstorage.R;
+import com.ndu.passwordstorage.adapter.DisplayListEntryAdapter;
 import com.ndu.passwordstorage.data.PasswordDatabase;
 import com.ndu.passwordstorage.data.PasswordDatabaseImpl;
 import com.ndu.passwordstorage.model.PasswordEntry;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +30,7 @@ public class DisplayListActivity extends ListActivity {
     private static final int CONTEXT_MENU_DELETE_ID = 1;
 
     private PasswordDatabase passwordDatabase;
+    private ArrayAdapter<PasswordEntry> namesAdapter;
     private Unbinder unbinder;
 
     @BindView(R.id.fab)
@@ -43,8 +44,17 @@ public class DisplayListActivity extends ListActivity {
         passwordDatabase = new PasswordDatabaseImpl(getApplicationContext());
 
         registerForContextMenu(getListView());
-        refreshDisplay();
+        defineDisplay();
         setCreateAction();
+    }
+
+    private void defineDisplay() {
+        this.namesAdapter = new DisplayListEntryAdapter(this, passwordDatabase.select());
+        getListView().setAdapter(namesAdapter);
+    }
+
+    private void setCreateAction() {
+        fab.setOnClickListener(view -> createMemo());
     }
 
     @Override
@@ -52,12 +62,6 @@ public class DisplayListActivity extends ListActivity {
         super.onDestroy();
         unbinder.unbind();
         passwordDatabase.closeDatabase();
-    }
-
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        displayMemo(position);
     }
 
     @Override
@@ -71,7 +75,7 @@ public class DisplayListActivity extends ListActivity {
         if (item.getItemId() == CONTEXT_MENU_DELETE_ID) {
             int currentPositionInList = ((AdapterView.AdapterContextMenuInfo)item.getMenuInfo()).position;
             deleteMemo(currentPositionInList);
-            refreshDisplay();
+            updateEntryList();
         }
 
         return super.onContextItemSelected(item);
@@ -88,27 +92,14 @@ public class DisplayListActivity extends ListActivity {
                 passwordDatabase.update(passwordEntryUpdated);
             }
 
-            refreshDisplay();
+            updateEntryList();
         }
     }
 
-    private void refreshDisplay() {
-        ListView listView = getListView();
-        List<String> names = fillMemoList();
-        ArrayAdapter<String> namesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
-        listView.setAdapter(namesAdapter);
-    }
+    private void updateEntryList() {
+        this.namesAdapter.clear();
+        this.namesAdapter.addAll(passwordDatabase.select());
 
-    @NonNull
-    private List<String> fillMemoList() {
-        return passwordDatabase.select()
-                .stream()
-                .map(PasswordEntry::toString)
-                .collect(Collectors.toList());
-    }
-
-    private void setCreateAction() {
-        fab.setOnClickListener(view -> createMemo());
     }
 
     private void createMemo() {
@@ -126,7 +117,7 @@ public class DisplayListActivity extends ListActivity {
         passwordDatabase.delete(passwordEntry);
     }
 
-    private void displayMemo(int position) {
+    public void displayMemo(int position) {
         Intent memoActivityIntent = new Intent(this, MemoActivity.class);
 
         List<PasswordEntry> passwordEntries = passwordDatabase.select();

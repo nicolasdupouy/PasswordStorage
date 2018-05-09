@@ -109,12 +109,12 @@ public class DisplayListActivityTest {
         onView(withText(R.string.delete)).perform(click());
     }
     private void findAndLongClickEntry(PasswordEntry passwordEntry) {
-        onData(allOf(is(instanceOf(String.class)), is(passwordEntry.toString())))
+        onData(allOf(is(instanceOf(PasswordEntry.class)), is(passwordEntry)))
                 .perform(scrollTo(), longClick());
     }
 
     private void findAndClickEntry(PasswordEntry passwordEntry) {
-        onData(allOf(is(instanceOf(String.class)), is(passwordEntry.toString())))
+        onData(allOf(is(instanceOf(PasswordEntry.class)), is(passwordEntry)))
                 .perform(scrollTo(), click());
     }
 
@@ -136,9 +136,8 @@ public class DisplayListActivityTest {
             return false;
 
         for (int i = 0; i < adapter.getCount(); i++) {
-            String item = (String) adapter.getItem(i);
-            if (passwordEntry.toString()
-                    .equals(item)) {
+            PasswordEntry item = (PasswordEntry) adapter.getItem(i);
+            if (passwordEntry.equals(item)) {
                 return true;
             }
         }

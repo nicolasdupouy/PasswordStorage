@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,8 +26,6 @@ public class MemoActivity extends AppCompatActivity {
     EditText login;
     @BindView(R.id.password)
     EditText password;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
 
     private PasswordEntry passwordEntry;
     private Unbinder unbinder;
@@ -40,7 +37,6 @@ public class MemoActivity extends AppCompatActivity {
         unbinder = ButterKnife.bind(this);
 
         readInfos();
-        setToolbar();
     }
 
     private void readInfos() {
@@ -50,10 +46,6 @@ public class MemoActivity extends AppCompatActivity {
         this.site.setText(passwordEntry.getSite(), TextView.BufferType.EDITABLE);
         this.login.setText(passwordEntry.getLogin(), TextView.BufferType.EDITABLE);
         this.password.setText(passwordEntry.getPassword(), TextView.BufferType.EDITABLE);
-    }
-
-    private void setToolbar() {
-        setSupportActionBar(toolbar);
     }
 
     @Override
