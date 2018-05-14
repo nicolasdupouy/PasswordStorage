@@ -32,13 +32,13 @@ import static org.hamcrest.CoreMatchers.is;
 @SmallTest
 public class DisplayListActivityTest {
 
-    private static final PasswordEntry NON_EXISTENT_PASSWORD_ENTRY = PasswordEntry.makeNew(
+    private static final PasswordEntry NON_EXISTENT_PASSWORD_ENTRY = PasswordEntry.Companion.makeNew(
             "Non Existent Site",
             "Non Existent Login",
             "Non Existent Password");
     private static final PasswordEntry NON_EXISTENT_PASSWORD_ENTRY_UPDATED;
     static {
-        NON_EXISTENT_PASSWORD_ENTRY_UPDATED = PasswordEntry.get(NON_EXISTENT_PASSWORD_ENTRY);
+        NON_EXISTENT_PASSWORD_ENTRY_UPDATED = PasswordEntry.Companion.get(NON_EXISTENT_PASSWORD_ENTRY);
         NON_EXISTENT_PASSWORD_ENTRY_UPDATED.update(
                 "Non Existent Site_updated",
                 "Non Existent Login_updated",

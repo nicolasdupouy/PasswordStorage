@@ -61,7 +61,7 @@ public class PasswordDatabaseImpl extends SQLiteOpenHelper implements PasswordDa
             String login = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_LOGIN));
             String password = cursor.getString(cursor.getColumnIndex(DataContract.DataEntry.COLUMN_NAME_PASSWORD));
 
-            entries.add(PasswordEntry.get(id, key, site, login, password));
+            entries.add(PasswordEntry.Companion.get(id, key, site, login, password));
         }
         cursor.close();
 

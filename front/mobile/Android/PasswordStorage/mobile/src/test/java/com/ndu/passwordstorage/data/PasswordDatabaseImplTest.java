@@ -18,15 +18,15 @@ import static org.junit.Assert.assertTrue;
 @RunWith(RobolectricTestRunner.class)
 public class PasswordDatabaseImplTest {
 
-    private static PasswordEntry PASSWORD_ENTRY_1 = PasswordEntry.makeNew(
+    private static PasswordEntry PASSWORD_ENTRY_1 = PasswordEntry.Companion.makeNew(
             "site_1",
             "login_1",
             "password_1");
-    private static PasswordEntry PASSWORD_ENTRY_2 = PasswordEntry.makeNew(
+    private static PasswordEntry PASSWORD_ENTRY_2 = PasswordEntry.Companion.makeNew(
             "site_2",
             "login_2",
             "password_2");
-    private static PasswordEntry PASSWORD_ENTRY_3 = PasswordEntry.makeNew(
+    private static PasswordEntry PASSWORD_ENTRY_3 = PasswordEntry.Companion.makeNew(
             "site_3",
             "login_3",
             "password_3");
@@ -36,17 +36,17 @@ public class PasswordDatabaseImplTest {
     private static PasswordEntry PASSWORD_ENTRY_3_UPDATED;
 
     static {
-        PASSWORD_ENTRY_1_UPDATED = PasswordEntry.get(PASSWORD_ENTRY_1);
+        PASSWORD_ENTRY_1_UPDATED = PasswordEntry.Companion.get(PASSWORD_ENTRY_1);
         PASSWORD_ENTRY_1_UPDATED.update(
                 "site_1_updated",
                 "login_1_updated",
                 "password_1_updated");
-        PASSWORD_ENTRY_2_UPDATED = PasswordEntry.get(PASSWORD_ENTRY_2);
+        PASSWORD_ENTRY_2_UPDATED = PasswordEntry.Companion.get(PASSWORD_ENTRY_2);
         PASSWORD_ENTRY_2_UPDATED.update(
                 "site_2_updated",
                 "login_2_updated",
                 "password_2_updated");
-        PASSWORD_ENTRY_3_UPDATED = PasswordEntry.get(PASSWORD_ENTRY_3);
+        PASSWORD_ENTRY_3_UPDATED = PasswordEntry.Companion.get(PASSWORD_ENTRY_3);
         PASSWORD_ENTRY_3_UPDATED.update(
                 "site_3_updated",
                 "login_3_updated",

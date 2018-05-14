@@ -84,7 +84,7 @@ public class DisplayListActivity extends ListActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            PasswordEntry passwordEntryUpdated = PasswordEntry.readInfos(data);
+            PasswordEntry passwordEntryUpdated = PasswordEntry.Companion.readInfos(data);
 
             if (requestCode == MemoActivity.CREATE_MEMO) {
                 passwordDatabase.insert(passwordEntryUpdated);
@@ -105,7 +105,7 @@ public class DisplayListActivity extends ListActivity {
     private void createMemo() {
         Intent memoActivityIntent = new Intent(this, MemoActivity.class);
 
-        PasswordEntry passwordEntry = PasswordEntry.makeNew();
+        PasswordEntry passwordEntry = PasswordEntry.Companion.makeNew();
         passwordEntry.putInfos(memoActivityIntent);
 
         startActivityForResult(memoActivityIntent, MemoActivity.CREATE_MEMO);

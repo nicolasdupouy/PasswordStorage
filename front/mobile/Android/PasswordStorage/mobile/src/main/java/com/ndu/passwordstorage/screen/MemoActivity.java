@@ -41,7 +41,7 @@ public class MemoActivity extends AppCompatActivity {
 
     private void readInfos() {
         Intent intent = this.getIntent();
-        passwordEntry = PasswordEntry.readInfos(intent);
+        passwordEntry = PasswordEntry.Companion.readInfos(intent);
 
         this.site.setText(passwordEntry.getSite(), TextView.BufferType.EDITABLE);
         this.login.setText(passwordEntry.getLogin(), TextView.BufferType.EDITABLE);
