@@ -11,7 +11,7 @@ import java.util.Random
 
 class PasswordEntry private constructor() {
     private var id: Int = 0
-    var key: String? = null
+    lateinit var key: String
         private set
     var site: String? = null
         private set
