@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.ListActivity
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.view.ContextMenu
 import android.view.MenuItem
 import android.view.View
@@ -16,18 +15,16 @@ import com.ndu.passwordstorage.adapter.DisplayListEntryAdapter
 import com.ndu.passwordstorage.data.PasswordDatabase
 import com.ndu.passwordstorage.data.PasswordDatabaseImpl
 import com.ndu.passwordstorage.model.PasswordEntry
+import kotlinx.android.synthetic.main.activity_display_list.*
 
 class DisplayListActivity : ListActivity() {
 
     private lateinit var passwordDatabase: PasswordDatabase
     private lateinit var namesAdapter: ArrayAdapter<PasswordEntry>
 
-    private lateinit var fab: FloatingActionButton
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_list)
-        fab = findViewById(R.id.fab)
         passwordDatabase = PasswordDatabaseImpl(applicationContext)
 
         registerForContextMenu(listView)
@@ -41,7 +38,7 @@ class DisplayListActivity : ListActivity() {
     }
 
     private fun setCreateAction() {
-        fab.setOnClickListener { view -> createMemo() }
+        fab.setOnClickListener { createMemo() }
     }
 
     override fun onDestroy() {

@@ -4,26 +4,19 @@ import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.EditText
 import android.widget.TextView
 
 import com.ndu.passwordstorage.R
 import com.ndu.passwordstorage.model.PasswordEntry
+import kotlinx.android.synthetic.main.activity_memo.*
 
 class MemoActivity : AppCompatActivity() {
-
-    private lateinit var site: EditText
-    private lateinit var login: EditText
-    private lateinit var password: EditText
 
     private lateinit var passwordEntry: PasswordEntry
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_memo)
-        site = findViewById(R.id.site)
-        login = findViewById(R.id.login)
-        password = findViewById(R.id.password)
 
         readInfos()
     }
@@ -32,9 +25,9 @@ class MemoActivity : AppCompatActivity() {
         val intent = this.intent
         passwordEntry = PasswordEntry.readInfos(intent)
 
-        this.site.setText(passwordEntry.site, TextView.BufferType.EDITABLE)
-        this.login.setText(passwordEntry.login, TextView.BufferType.EDITABLE)
-        this.password.setText(passwordEntry.password, TextView.BufferType.EDITABLE)
+        site.setText(passwordEntry.site, TextView.BufferType.EDITABLE)
+        login.setText(passwordEntry.login, TextView.BufferType.EDITABLE)
+        password.setText(passwordEntry.password, TextView.BufferType.EDITABLE)
     }
 
     override fun onDestroy() {
@@ -55,9 +48,9 @@ class MemoActivity : AppCompatActivity() {
 
     private fun saveMemo() {
         passwordEntry.update(
-                this.site.text.toString(),
-                this.login.text.toString(),
-                this.password.text.toString())
+                site.text.toString(),
+                login.text.toString(),
+                password.text.toString())
     }
 
     companion object {
