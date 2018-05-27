@@ -19,8 +19,8 @@ import com.ndu.passwordstorage.model.PasswordEntry
 
 class DisplayListActivity : ListActivity() {
 
-    private var passwordDatabase: PasswordDatabase? = null
-    private var namesAdapter: ArrayAdapter<PasswordEntry>? = null
+    private lateinit var passwordDatabase: PasswordDatabase
+    private lateinit var namesAdapter: ArrayAdapter<PasswordEntry>
 
     private lateinit var fab: FloatingActionButton
 
@@ -36,7 +36,7 @@ class DisplayListActivity : ListActivity() {
     }
 
     private fun defineDisplay() {
-        this.namesAdapter = DisplayListEntryAdapter(this, passwordDatabase!!.select())
+        this.namesAdapter = DisplayListEntryAdapter(this, passwordDatabase.select())
         listView.adapter = namesAdapter
     }
 
@@ -46,7 +46,7 @@ class DisplayListActivity : ListActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        passwordDatabase!!.closeDatabase()
+        passwordDatabase.closeDatabase()
     }
 
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo) {
@@ -69,9 +69,9 @@ class DisplayListActivity : ListActivity() {
             val passwordEntryUpdated = PasswordEntry.readInfos(data)
 
             if (requestCode == MemoActivity.CREATE_MEMO) {
-                passwordDatabase!!.insert(passwordEntryUpdated)
+                passwordDatabase.insert(passwordEntryUpdated)
             } else if (requestCode == MemoActivity.DISPLAY_MEMO) {
-                passwordDatabase!!.update(passwordEntryUpdated)
+                passwordDatabase.update(passwordEntryUpdated)
             }
 
             updateEntryList()
@@ -79,8 +79,8 @@ class DisplayListActivity : ListActivity() {
     }
 
     private fun updateEntryList() {
-        this.namesAdapter!!.clear()
-        this.namesAdapter!!.addAll(passwordDatabase!!.select())
+        this.namesAdapter.clear()
+        this.namesAdapter.addAll(passwordDatabase.select())
 
     }
 
@@ -94,15 +94,15 @@ class DisplayListActivity : ListActivity() {
     }
 
     private fun deleteMemo(position: Int) {
-        val passwordEntries = passwordDatabase!!.select()
+        val passwordEntries = passwordDatabase.select()
         val passwordEntry = passwordEntries[position]
-        passwordDatabase!!.delete(passwordEntry)
+        passwordDatabase.delete(passwordEntry)
     }
 
     fun displayMemo(position: Int) {
         val memoActivityIntent = Intent(this, MemoActivity::class.java)
 
-        val passwordEntries = passwordDatabase!!.select()
+        val passwordEntries = passwordDatabase.select()
         val passwordEntry = passwordEntries[position]
         passwordEntry.putInfos(memoActivityIntent)
 

@@ -13,10 +13,10 @@ import com.ndu.passwordstorage.model.PasswordEntry
 class MemoActivity : AppCompatActivity() {
 
     private lateinit var site: EditText
-    private lateinit  var login: EditText
-    private lateinit  var password: EditText
+    private lateinit var login: EditText
+    private lateinit var password: EditText
 
-    private var passwordEntry: PasswordEntry? = null
+    private lateinit var passwordEntry: PasswordEntry
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,9 +32,9 @@ class MemoActivity : AppCompatActivity() {
         val intent = this.intent
         passwordEntry = PasswordEntry.readInfos(intent)
 
-        this.site.setText(passwordEntry!!.site, TextView.BufferType.EDITABLE)
-        this.login.setText(passwordEntry!!.login, TextView.BufferType.EDITABLE)
-        this.password.setText(passwordEntry!!.password, TextView.BufferType.EDITABLE)
+        this.site.setText(passwordEntry.site, TextView.BufferType.EDITABLE)
+        this.login.setText(passwordEntry.login, TextView.BufferType.EDITABLE)
+        this.password.setText(passwordEntry.password, TextView.BufferType.EDITABLE)
     }
 
     override fun onDestroy() {
@@ -48,13 +48,13 @@ class MemoActivity : AppCompatActivity() {
 
     fun update(view: View) {
         saveMemo()
-        val intent = passwordEntry!!.giveInfos()
+        val intent = passwordEntry.giveInfos()
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
 
     private fun saveMemo() {
-        passwordEntry!!.update(
+        passwordEntry.update(
                 this.site.text.toString(),
                 this.login.text.toString(),
                 this.password.text.toString())
