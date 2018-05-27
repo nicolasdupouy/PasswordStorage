@@ -10,7 +10,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ListView
 
 import com.ndu.passwordstorage.R
 import com.ndu.passwordstorage.adapter.DisplayListEntryAdapter
@@ -18,23 +17,17 @@ import com.ndu.passwordstorage.data.PasswordDatabase
 import com.ndu.passwordstorage.data.PasswordDatabaseImpl
 import com.ndu.passwordstorage.model.PasswordEntry
 
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
-
 class DisplayListActivity : ListActivity() {
 
     private var passwordDatabase: PasswordDatabase? = null
     private var namesAdapter: ArrayAdapter<PasswordEntry>? = null
-    private var unbinder: Unbinder? = null
 
-    @BindView(R.id.fab)
-    internal var fab: FloatingActionButton? = null
+    private lateinit var fab: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_display_list)
-        unbinder = ButterKnife.bind(this)
+        fab = findViewById(R.id.fab)
         passwordDatabase = PasswordDatabaseImpl(applicationContext)
 
         registerForContextMenu(listView)
@@ -48,12 +41,11 @@ class DisplayListActivity : ListActivity() {
     }
 
     private fun setCreateAction() {
-        fab!!.setOnClickListener { view -> createMemo() }
+        fab.setOnClickListener { view -> createMemo() }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        unbinder!!.unbind()
         passwordDatabase!!.closeDatabase()
     }
 
