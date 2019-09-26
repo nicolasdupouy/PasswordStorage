@@ -1,10 +1,11 @@
-package com.ndu.passwordstorage
+package com.ndu.passwordstorage.infrastructure.screen.activity
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.ndu.passwordstorage.R
 
 import kotlinx.android.synthetic.main.activity_main.*
 
