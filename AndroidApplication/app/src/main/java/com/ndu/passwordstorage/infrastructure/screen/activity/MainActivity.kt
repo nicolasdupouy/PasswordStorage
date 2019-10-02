@@ -9,6 +9,7 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ndu.passwordstorage.R
+import com.ndu.passwordstorage.domain.PasswordEntry
 import com.ndu.passwordstorage.infrastructure.screen.adapter.ListEntryAdapter
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,7 +20,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
-    private val draftDataSet = listOf<String>("Entry 1", "Entry 2", "Entry 3", "Entry 4", "Entry 5")
+    private val draftDataSet = listOf(
+        PasswordEntry("Site 1", "login 1", "password 1"),
+        PasswordEntry("Site 2", "login 2", "password 2"),
+        PasswordEntry("Site 3", "login 3", "password 3"),
+        PasswordEntry("Site 4", "login 4", "password 4"),
+        PasswordEntry("Site 5", "login 5", "password 5"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

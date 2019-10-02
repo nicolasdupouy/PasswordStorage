@@ -7,19 +7,26 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ndu.passwordstorage.R
+import com.ndu.passwordstorage.domain.PasswordEntry
 
-class ListEntryAdapter(private val entryList: List<String>): RecyclerView.Adapter<ListEntryAdapter.ViewHolder>() {
+class ListEntryAdapter(private val entryList: List<PasswordEntry>): RecyclerView.Adapter<ListEntryAdapter.ViewHolder>() {
     class ViewHolder(linearLayout: LinearLayout): RecyclerView.ViewHolder(linearLayout) {
-        val myTextView: TextView = linearLayout.findViewById<TextView>(R.id.my_text_view)
+        val siteTextView: TextView = linearLayout.findViewById(R.id.site)
+        val loginTextView: TextView = linearLayout.findViewById(R.id.login)
+        val passwordEditText: TextView = linearLayout.findViewById(R.id.password)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val linearLayout = LayoutInflater.from(parent.context).inflate(R.layout.my_text_view, parent, false) as LinearLayout
+        val linearLayout = LayoutInflater.from(parent.context).inflate(R.layout.adapter_list_entry, parent, false) as LinearLayout
         return ViewHolder(linearLayout)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.myTextView.text = entryList[position]
+        val passwordEntry = entryList[position]
+        holder.siteTextView.text = passwordEntry.site
+        holder.loginTextView.text = passwordEntry.login
+        holder.passwordEditText.text = passwordEntry.password
+
     }
 
     override fun getItemCount(): Int = entryList.size
