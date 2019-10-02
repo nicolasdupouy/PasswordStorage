@@ -9,8 +9,10 @@ import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ndu.passwordstorage.R
+import com.ndu.passwordstorage.databinding.ActivityMainBinding
 import com.ndu.passwordstorage.domain.PasswordEntry
 import com.ndu.passwordstorage.infrastructure.screen.adapter.ListEntryAdapter
+import androidx.databinding.DataBindingUtil.setContentView
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -29,7 +31,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+
         fillStorageList()
         setSupportActionBar(toolbar)
 

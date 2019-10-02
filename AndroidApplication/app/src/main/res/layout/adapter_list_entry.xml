@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_gravity="center_horizontal"
-    android:padding="16dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView
-        android:id="@+id/site"
-        android:hint="@string/site"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/login"
-        android:hint="@string/login"
-
-        android:layout_width="100dp"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/password"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <ImageButton
-        android:id="@+id/optionButton"
-        style="?android:attr/actionOverflowButtonStyle"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        android:contentDescription="@string/options" />
+        <TextView
+            android:id="@+id/site"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/site" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/login"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/login" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+
+        <ImageButton
+            android:id="@+id/optionButton"
+            style="?android:attr/actionOverflowButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:contentDescription="@string/options" />
+
+    </LinearLayout>
+</layout>
