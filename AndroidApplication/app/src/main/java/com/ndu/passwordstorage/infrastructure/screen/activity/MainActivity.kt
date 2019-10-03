@@ -3,7 +3,6 @@ package com.ndu.passwordstorage.infrastructure.screen.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -54,7 +53,6 @@ class MainActivity : AppCompatActivity() {
 
             // specify an viewAdapter (see also next example)
             adapter = viewAdapter
-
         }
     }
 
@@ -64,21 +62,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun createMemo() {
         val memoActivityIntent = Intent(this, MemoActivity::class.java)
-
-        val passwordEntry = PasswordEntry(33, "site_nicolas", "login_nicolas", "password_nicolas")
-        passwordEntry.putInfos(memoActivityIntent)
-
-        Log.d("TEST_NICOLAS", "startActivityForResult MemoActivity")
-        startActivityForResult(memoActivityIntent, 2 /*MemoActivity.CREATE_MEMO*/)
+        startActivityForResult(memoActivityIntent, MemoActivity.CREATE_MEMO)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-        Log.d("TEST_NICOLAS", "retour de MemoActivity: ${data?.toString()} / resultCode = $resultCode")
         if (resultCode == Activity.RESULT_OK) {
-            val passwordEntryUpdated = PasswordEntry.readInfos(data)
-
-            Toast.makeText(applicationContext, passwordEntryUpdated.toString(), Toast.LENGTH_LONG).show()
+            data?.let {
+                val pe = data.getParcelableExtra<PasswordEntry>(MemoActivity.EXCHANGE_DATA)
+                Toast.makeText(applicationContext, pe.toString(), Toast.LENGTH_LONG).show()
+            }
         }
 
         super.onActivityResult(requestCode, resultCode, data)

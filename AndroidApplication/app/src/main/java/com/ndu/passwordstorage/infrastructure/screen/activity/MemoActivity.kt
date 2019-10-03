@@ -12,14 +12,15 @@ import com.ndu.passwordstorage.databinding.ActivityMemoBinding
 import com.ndu.passwordstorage.domain.PasswordEntry
 
 class MemoActivity: AppCompatActivity() {
-    val DISPLAY_MEMO = 1
-    val CREATE_MEMO = 2
+    companion object {
+        const val DISPLAY_MEMO = 1
+        const val CREATE_MEMO = 2
+        const val EXCHANGE_DATA = "passwordEntry"
+    }
 
     internal lateinit var site: EditText
     internal lateinit var login: EditText
     internal lateinit var password: EditText
-
-    var passwordEntry: PasswordEntry? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,17 +28,6 @@ class MemoActivity: AppCompatActivity() {
         site = binding.site
         login = binding.login
         password = binding.password
-
-        readInfos()
-    }
-
-    private fun readInfos() {
-        val intent = this.intent
-        passwordEntry = PasswordEntry.readInfos(intent)
-
-        this.site.setText(passwordEntry?.site, TextView.BufferType.EDITABLE)
-        this.login.setText(passwordEntry?.login, TextView.BufferType.EDITABLE)
-        this.password.setText(passwordEntry?.password, TextView.BufferType.EDITABLE)
     }
 
     fun cancel(view: View) {
@@ -46,17 +36,16 @@ class MemoActivity: AppCompatActivity() {
     }
 
     fun update(view: View) {
-        saveMemo()
-        val intent = passwordEntry?.giveInfos()
+        val formDatas = getFormDatas()
+        intent.putExtra(EXCHANGE_DATA, PasswordEntry(formDatas))
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
 
-    private fun saveMemo() {
-        passwordEntry?.update(
+    private fun getFormDatas(): Triple<String, String, String> {
+        return Triple(
             this.site.text.toString(),
             this.login.text.toString(),
-            this.password.text.toString()
-        )
+            this.password.text.toString())
     }
 }
