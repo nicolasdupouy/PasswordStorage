@@ -23,11 +23,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     private val draftDataSet = listOf(
-        PasswordEntry("Site 1", "login 1", "password 1"),
-        PasswordEntry("Site 2", "login 2", "password 2"),
-        PasswordEntry("Site 3", "login 3", "password 3"),
-        PasswordEntry("Site 4", "login 4", "password 4"),
-        PasswordEntry("Site 5", "login 5", "password 5"))
+        PasswordEntry(1, "Site 1", "login 1", "password 1"),
+        PasswordEntry(2, "Site 2", "login 2", "password 2"),
+        PasswordEntry(3, "Site 3", "login 3", "password 3"),
+        PasswordEntry(4, "Site 4", "login 4", "password 4"),
+        PasswordEntry(5, "Site 5", "login 5", "password 5"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
