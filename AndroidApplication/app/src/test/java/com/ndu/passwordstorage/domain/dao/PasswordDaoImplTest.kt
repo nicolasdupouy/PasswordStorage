@@ -129,24 +129,24 @@ class PasswordDaoImplTest {
         assertTrue(entriesAfterThirdUpdate.contains(PASSWORD_ENTRY_3_UPDATED))
     }
 
-    /*
     @Test
-    public void should_delete_existent_entry_if_alone() {
+    fun `should delete existent entry if alone`() {
         // When
-        passwordDatabase.insert(PASSWORD_ENTRY_1);
-        List<PasswordEntry> entriesBeforeDelete = passwordDatabase.select();
+        passwordDao.insert(PASSWORD_ENTRY_1)
+        val entriesBeforeDelete = passwordDao.selectAll()
 
         // Then
-        boolean deleteExistentEntry = passwordDatabase.delete(PASSWORD_ENTRY_1);
-        List<PasswordEntry> entriesAfterDelete = passwordDatabase.select();
+        val deleteExistentEntry = passwordDao.delete(PASSWORD_ENTRY_1)
+        val entriesAfterDelete = passwordDao.selectAll()
 
-        assertThat(entriesBeforeDelete.size(), is(1));
-        assertThat(entriesAfterDelete.size(), is(0));
-        assertTrue(deleteExistentEntry);
+        assertThat(entriesBeforeDelete.size, `is`<Int>(1))
+        assertThat(entriesAfterDelete.size, `is`<Int>(0))
+        assertTrue(deleteExistentEntry)
 
-        assertFalse(entriesAfterDelete.contains(PASSWORD_ENTRY_1));
+        assertFalse(entriesAfterDelete.contains(PASSWORD_ENTRY_1))
     }
 
+    /*
     @Test
     public void should_delete_existent_entry_if_not_alone() {
         // When

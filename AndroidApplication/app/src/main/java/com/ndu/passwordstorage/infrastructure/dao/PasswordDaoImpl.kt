@@ -68,8 +68,6 @@ class PasswordDaoImpl(context: Context) :
     }
 
     override fun update(passwordEntry: PasswordEntry): Boolean {
-        val db = writableDatabase
-
         val values = ContentValues()
         values.put(DataEntry.COLUMN_NAME_SITE, passwordEntry.site)
         values.put(DataEntry.COLUMN_NAME_LOGIN, passwordEntry.login)
@@ -78,7 +76,7 @@ class PasswordDaoImpl(context: Context) :
         val selection = DataEntry.COLUMN_NAME_ID + " = ?"
         val selectionArgs = arrayOf(passwordEntry.id.toString())
 
-        val update = db.update(
+        val update = writableDatabase.update(
             DataEntry.TABLE_NAME,
             values,
             selection,
@@ -89,6 +87,11 @@ class PasswordDaoImpl(context: Context) :
     }
 
     override fun delete(passwordEntry: PasswordEntry): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val selection = DataEntry.COLUMN_NAME_ID + " = ?"
+        val selectionArgs = arrayOf(passwordEntry.id.toString())
+
+        val delete = writableDatabase.delete(DataEntry.TABLE_NAME, selection, selectionArgs)
+
+        return delete == 1
     }
 }
