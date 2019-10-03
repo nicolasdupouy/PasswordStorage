@@ -3,8 +3,7 @@ package com.ndu.passwordstorage.domain.dao
 import com.ndu.passwordstorage.domain.PasswordEntry
 import com.ndu.passwordstorage.infrastructure.dao.PasswordDaoImpl
 import org.hamcrest.core.Is.`is`
-import org.junit.Assert.assertThat
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -18,12 +17,12 @@ class PasswordDaoImplTest {
 
     companion object {
         val PASSWORD_ENTRY_1 = PasswordEntry(1, "site_1","login_1", "password_1")
-        val PASSWORD_ENTRY_2 = PasswordEntry(2, "site_1","login_1", "password_1")
-        val PASSWORD_ENTRY_3 = PasswordEntry(3, "site_1","login_1", "password_1")
+        val PASSWORD_ENTRY_2 = PasswordEntry(2, "site_2","login_2", "password_2")
+        val PASSWORD_ENTRY_3 = PasswordEntry(3, "site_3","login_3", "password_3")
 
         val PASSWORD_ENTRY_1_UPDATED = PasswordEntry(1, "site_1_updated","login_1_updated", "password_1_updated")
-        val PASSWORD_ENTRY_2_UPDATED = PasswordEntry(2, "site_1_updated","login_1_updated", "password_1_updated")
-        val PASSWORD_ENTRY_3_UPDATED = PasswordEntry(3, "site_1_updated","login_1_updated", "password_1_updated")
+        val PASSWORD_ENTRY_2_UPDATED = PasswordEntry(2, "site_2_updated","login_2_updated", "password_2_updated")
+        val PASSWORD_ENTRY_3_UPDATED = PasswordEntry(3, "site_3_updated","login_3_updated", "password_3_updated")
     }
 
     @Before
@@ -46,26 +45,26 @@ class PasswordDaoImplTest {
         assertTrue(entriesAfter.contains(PASSWORD_ENTRY_1))
     }
 
-    /*
     @Test
-    public void should_add_an_entry_only_once() {
+    fun `should add an entry only once`() {
         // When
-        List<PasswordEntry> entriesBefore = passwordDatabase.select();
-        boolean insertFirstPasswordEntryFirstTime = passwordDatabase.insert(PASSWORD_ENTRY_1);
-        boolean insertSecondPasswordEntry = passwordDatabase.insert(PASSWORD_ENTRY_2);
-        boolean insertFirstPasswordEntrySecondTime = passwordDatabase.insert(PASSWORD_ENTRY_1);
-        List<PasswordEntry> entriesAfter = passwordDatabase.select();
+        val entriesBefore = passwordDao.selectAll()
+        val insertFirstPasswordEntryFirstTime = passwordDao.insert(PASSWORD_ENTRY_1)
+        val insertSecondPasswordEntry = passwordDao.insert(PASSWORD_ENTRY_2)
+        val insertFirstPasswordEntrySecondTime = passwordDao.insert(PASSWORD_ENTRY_1)
+        val entriesAfter = passwordDao.selectAll()
 
         // Then
-        assertThat(entriesBefore.size(), is(0));
-        assertThat(entriesAfter.size(), is(2));
-        assertTrue(insertFirstPasswordEntryFirstTime);
-        assertTrue(insertSecondPasswordEntry);
-        assertFalse(insertFirstPasswordEntrySecondTime);
-        assertTrue(entriesAfter.contains(PASSWORD_ENTRY_1));
-        assertTrue(entriesAfter.contains(PASSWORD_ENTRY_2));
+        assertThat(entriesBefore.size, `is`<Int>(0))
+        assertThat(entriesAfter.size, `is`<Int>(2))
+        assertTrue(insertFirstPasswordEntryFirstTime)
+        assertTrue(insertSecondPasswordEntry)
+        assertFalse(insertFirstPasswordEntrySecondTime)
+        assertTrue(entriesAfter.contains(PASSWORD_ENTRY_1))
+        assertTrue(entriesAfter.contains(PASSWORD_ENTRY_2))
     }
 
+    /*
     @Test
     public void should_update_entry_if_alone() {
         // When
