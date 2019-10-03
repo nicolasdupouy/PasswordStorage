@@ -1,11 +1,13 @@
 package com.ndu.passwordstorage.infrastructure.screen.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ndu.passwordstorage.R
@@ -18,7 +20,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
@@ -36,10 +37,7 @@ class MainActivity : AppCompatActivity() {
         fillStorageList()
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        setCreateAction()
     }
 
     private fun fillStorageList() {
@@ -59,6 +57,33 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
+    private fun setCreateAction() {
+        fab.setOnClickListener { view -> createMemo() }
+    }
+
+    private fun createMemo() {
+        val memoActivityIntent = Intent(this, MemoActivity::class.java)
+
+        val passwordEntry = PasswordEntry(33, "site_nicolas", "login_nicolas", "password_nicolas")
+        passwordEntry.putInfos(memoActivityIntent)
+
+        Log.d("TEST_NICOLAS", "startActivityForResult MemoActivity")
+        startActivityForResult(memoActivityIntent, 2 /*MemoActivity.CREATE_MEMO*/)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        Log.d("TEST_NICOLAS", "retour de MemoActivity: ${data?.toString()} / resultCode = $resultCode")
+        if (resultCode == Activity.RESULT_OK) {
+            val passwordEntryUpdated = PasswordEntry.readInfos(data)
+
+            Toast.makeText(applicationContext, passwordEntryUpdated.toString(), Toast.LENGTH_LONG).show()
+        }
+
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
