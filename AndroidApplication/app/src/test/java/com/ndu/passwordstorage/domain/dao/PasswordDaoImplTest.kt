@@ -146,60 +146,58 @@ class PasswordDaoImplTest {
         assertFalse(entriesAfterDelete.contains(PASSWORD_ENTRY_1))
     }
 
-    /*
     @Test
-    public void should_delete_existent_entry_if_not_alone() {
+    fun `should delete existent entry if not alone`() {
         // When
-        passwordDatabase.insert(PASSWORD_ENTRY_1);
-        passwordDatabase.insert(PASSWORD_ENTRY_2);
-        passwordDatabase.insert(PASSWORD_ENTRY_3);
-        List<PasswordEntry> entriesBeforeDelete = passwordDatabase.select();
+        passwordDao.insert(PASSWORD_ENTRY_1)
+        passwordDao.insert(PASSWORD_ENTRY_2)
+        passwordDao.insert(PASSWORD_ENTRY_3)
+        val entriesBeforeDelete = passwordDao.selectAll()
 
         // Then
-        boolean deleteExistentEntry = passwordDatabase.delete(PASSWORD_ENTRY_2);
-        List<PasswordEntry> entriesAfterDelete = passwordDatabase.select();
+        val deleteExistentEntry = passwordDao.delete(PASSWORD_ENTRY_2)
+        val entriesAfterDelete = passwordDao.selectAll()
 
-        assertThat(entriesBeforeDelete.size(), is(3));
-        assertThat(entriesAfterDelete.size(), is(2));
-        assertTrue(deleteExistentEntry);
+        assertThat(entriesBeforeDelete.size, `is`<Int>(3))
+        assertThat(entriesAfterDelete.size, `is`<Int>(2))
+        assertTrue(deleteExistentEntry)
 
-        assertFalse(entriesAfterDelete.contains(PASSWORD_ENTRY_2));
+        assertFalse(entriesAfterDelete.contains(PASSWORD_ENTRY_2))
     }
 
     @Test
-    public void should_not_delete_inexistent_entry_if_alone() {
+    fun `should not delete inexistent entry if alone`() {
         // When
-        passwordDatabase.insert(PASSWORD_ENTRY_1);
-        List<PasswordEntry> entriesBeforeDelete = passwordDatabase.select();
+        passwordDao.insert(PASSWORD_ENTRY_1)
+        val entriesBeforeDelete = passwordDao.selectAll()
 
         // Then
-        boolean deleteInexistentEntry = passwordDatabase.delete(PASSWORD_ENTRY_2);
-        List<PasswordEntry> entriesAfterDelete = passwordDatabase.select();
+        val deleteInexistentEntry = passwordDao.delete(PASSWORD_ENTRY_2)
+        val entriesAfterDelete = passwordDao.selectAll()
 
-        assertThat(entriesBeforeDelete.size(), is(1));
-        assertThat(entriesAfterDelete.size(), is(1));
-        assertFalse(deleteInexistentEntry);
+        assertThat(entriesBeforeDelete.size, `is`<Int>(1))
+        assertThat(entriesAfterDelete.size, `is`<Int>(1))
+        assertFalse(deleteInexistentEntry)
 
-        assertTrue(entriesAfterDelete.contains(PASSWORD_ENTRY_1));
+        assertTrue(entriesAfterDelete.contains(PASSWORD_ENTRY_1))
     }
 
     @Test
-    public void should_not_delete_inexistent_entry_if_not_alone() {
+    fun `should not delete inexistent entry if not alone`() {
         // When
-        passwordDatabase.insert(PASSWORD_ENTRY_1);
-        passwordDatabase.insert(PASSWORD_ENTRY_2);
-        List<PasswordEntry> entriesBeforeDelete = passwordDatabase.select();
+        passwordDao.insert(PASSWORD_ENTRY_1)
+        passwordDao.insert(PASSWORD_ENTRY_2)
+        val entriesBeforeDelete = passwordDao.selectAll()
 
         // Then
-        boolean deleteInexistentEntry = passwordDatabase.delete(PASSWORD_ENTRY_3);
-        List<PasswordEntry> entriesAfterDelete = passwordDatabase.select();
+        val deleteInexistentEntry = passwordDao.delete(PASSWORD_ENTRY_3)
+        val entriesAfterDelete = passwordDao.selectAll()
 
-        assertThat(entriesBeforeDelete.size(), is(2));
-        assertThat(entriesAfterDelete.size(), is(2));
-        assertFalse(deleteInexistentEntry);
+        assertThat(entriesBeforeDelete.size, `is`<Int>(2))
+        assertThat(entriesAfterDelete.size, `is`<Int>(2))
+        assertFalse(deleteInexistentEntry)
 
-        assertTrue(entriesAfterDelete.contains(PASSWORD_ENTRY_1));
-        assertTrue(entriesAfterDelete.contains(PASSWORD_ENTRY_2));
+        assertTrue(entriesAfterDelete.contains(PASSWORD_ENTRY_1))
+        assertTrue(entriesAfterDelete.contains(PASSWORD_ENTRY_2))
     }
-     */
 }
