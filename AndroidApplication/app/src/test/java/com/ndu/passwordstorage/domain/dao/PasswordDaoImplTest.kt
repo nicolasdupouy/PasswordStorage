@@ -64,26 +64,26 @@ class PasswordDaoImplTest {
         assertTrue(entriesAfter.contains(PASSWORD_ENTRY_2))
     }
 
-    /*
     @Test
-    public void should_update_entry_if_alone() {
+    fun `should update entry if alone`() {
         // When
-        List<PasswordEntry> entriesBefore = passwordDatabase.select();
-        boolean insertFirstPasswordEntry = passwordDatabase.insert(PASSWORD_ENTRY_1);
+        val entriesBefore = passwordDao.selectAll()
+        val insertFirstPasswordEntry = passwordDao.insert(PASSWORD_ENTRY_1)
 
-        boolean updateFirstPasswordEntry = passwordDatabase.update(PASSWORD_ENTRY_1_UPDATED);
-        List<PasswordEntry> entriesAfter = passwordDatabase.select();
+        val updateFirstPasswordEntry = passwordDao.update(PASSWORD_ENTRY_1_UPDATED)
+        val entriesAfter = passwordDao.selectAll()
 
         // Then
-        assertThat(entriesBefore.size(), is(0));
-        assertThat(entriesAfter.size(), is(1));
-        assertTrue(insertFirstPasswordEntry);
-        assertTrue(updateFirstPasswordEntry);
+        assertThat(entriesBefore.size, `is`<Int>(0))
+        assertThat(entriesAfter.size, `is`<Int>(1))
+        assertTrue(insertFirstPasswordEntry)
+        assertTrue(updateFirstPasswordEntry)
 
-        assertFalse(entriesAfter.contains(PASSWORD_ENTRY_1));
-        assertTrue(entriesAfter.contains(PASSWORD_ENTRY_1_UPDATED));
+        assertFalse(entriesAfter.contains(PASSWORD_ENTRY_1))
+        assertTrue(entriesAfter.contains(PASSWORD_ENTRY_1_UPDATED))
     }
 
+    /*
     @Test
     public void should_update_entry_if_not_alone() {
         // When
