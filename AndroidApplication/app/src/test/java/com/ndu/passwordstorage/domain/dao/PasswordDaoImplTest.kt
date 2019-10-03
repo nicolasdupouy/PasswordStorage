@@ -83,53 +83,53 @@ class PasswordDaoImplTest {
         assertTrue(entriesAfter.contains(PASSWORD_ENTRY_1_UPDATED))
     }
 
-    /*
     @Test
-    public void should_update_entry_if_not_alone() {
+    fun `should update entry if not alone`() {
         // When
-        boolean insertFirstPasswordEntry = passwordDatabase.insert(PASSWORD_ENTRY_1);
-        boolean insertSecondPasswordEntry = passwordDatabase.insert(PASSWORD_ENTRY_2);
-        boolean insertThirdPasswordEntry = passwordDatabase.insert(PASSWORD_ENTRY_3);
-        List<PasswordEntry> entriesBeforeUpdates = passwordDatabase.select();
+        val insertFirstPasswordEntry = passwordDao.insert(PASSWORD_ENTRY_1)
+        val insertSecondPasswordEntry = passwordDao.insert(PASSWORD_ENTRY_2)
+        val insertThirdPasswordEntry = passwordDao.insert(PASSWORD_ENTRY_3)
+        val entriesBeforeUpdates = passwordDao.selectAll()
 
-        boolean updateSecondPasswordEntry = passwordDatabase.update(PASSWORD_ENTRY_2_UPDATED);
-        List<PasswordEntry> entriesAfterFirstUpdate = passwordDatabase.select();
+        val updateSecondPasswordEntry = passwordDao.update(PASSWORD_ENTRY_2_UPDATED)
+        val entriesAfterFirstUpdate = passwordDao.selectAll()
 
-        boolean updateThirdPasswordEntry = passwordDatabase.update(PASSWORD_ENTRY_3_UPDATED);
-        List<PasswordEntry> entriesAfterSecondUpdate = passwordDatabase.select();
+        val updateThirdPasswordEntry = passwordDao.update(PASSWORD_ENTRY_3_UPDATED)
+        val entriesAfterSecondUpdate = passwordDao.selectAll()
 
-        boolean updateFirstPasswordEntry = passwordDatabase.update(PASSWORD_ENTRY_1_UPDATED);
-        List<PasswordEntry> entriesAfterThirdUpdate = passwordDatabase.select();
+        val updateFirstPasswordEntry = passwordDao.update(PASSWORD_ENTRY_1_UPDATED)
+        val entriesAfterThirdUpdate = passwordDao.selectAll()
 
         // Then
-        assertThat(entriesBeforeUpdates.size(), is(3));
-        assertThat(entriesAfterFirstUpdate.size(), is(3));
-        assertThat(entriesAfterSecondUpdate.size(), is(3));
-        assertThat(entriesAfterThirdUpdate.size(), is(3));
+        assertThat(entriesBeforeUpdates.size, `is`<Int>(3))
+        assertThat(entriesAfterFirstUpdate.size, `is`<Int>(3))
+        assertThat(entriesAfterSecondUpdate.size, `is`<Int>(3))
+        assertThat(entriesAfterThirdUpdate.size, `is`<Int>(3))
 
-        assertTrue(insertFirstPasswordEntry);
-        assertTrue(insertSecondPasswordEntry);
-        assertTrue(insertThirdPasswordEntry);
+        assertTrue(insertFirstPasswordEntry)
+        assertTrue(insertSecondPasswordEntry)
+        assertTrue(insertThirdPasswordEntry)
 
-        assertTrue(updateSecondPasswordEntry);
-        assertTrue(updateThirdPasswordEntry);
-        assertTrue(updateFirstPasswordEntry);
+        assertTrue(updateSecondPasswordEntry)
+        assertTrue(updateThirdPasswordEntry)
+        assertTrue(updateFirstPasswordEntry)
 
-        assertTrue(entriesBeforeUpdates.contains(PASSWORD_ENTRY_1));
-        assertTrue(entriesBeforeUpdates.contains(PASSWORD_ENTRY_2));
-        assertTrue(entriesBeforeUpdates.contains(PASSWORD_ENTRY_3));
-        assertFalse(entriesBeforeUpdates.contains(PASSWORD_ENTRY_1_UPDATED));
-        assertFalse(entriesBeforeUpdates.contains(PASSWORD_ENTRY_2_UPDATED));
-        assertFalse(entriesBeforeUpdates.contains(PASSWORD_ENTRY_3_UPDATED));
+        assertTrue(entriesBeforeUpdates.contains(PASSWORD_ENTRY_1))
+        assertTrue(entriesBeforeUpdates.contains(PASSWORD_ENTRY_2))
+        assertTrue(entriesBeforeUpdates.contains(PASSWORD_ENTRY_3))
+        assertFalse(entriesBeforeUpdates.contains(PASSWORD_ENTRY_1_UPDATED))
+        assertFalse(entriesBeforeUpdates.contains(PASSWORD_ENTRY_2_UPDATED))
+        assertFalse(entriesBeforeUpdates.contains(PASSWORD_ENTRY_3_UPDATED))
 
-        assertFalse(entriesAfterThirdUpdate.contains(PASSWORD_ENTRY_1));
-        assertFalse(entriesAfterThirdUpdate.contains(PASSWORD_ENTRY_2));
-        assertFalse(entriesAfterThirdUpdate.contains(PASSWORD_ENTRY_3));
-        assertTrue(entriesAfterThirdUpdate.contains(PASSWORD_ENTRY_1_UPDATED));
-        assertTrue(entriesAfterThirdUpdate.contains(PASSWORD_ENTRY_2_UPDATED));
-        assertTrue(entriesAfterThirdUpdate.contains(PASSWORD_ENTRY_3_UPDATED));
+        assertFalse(entriesAfterThirdUpdate.contains(PASSWORD_ENTRY_1))
+        assertFalse(entriesAfterThirdUpdate.contains(PASSWORD_ENTRY_2))
+        assertFalse(entriesAfterThirdUpdate.contains(PASSWORD_ENTRY_3))
+        assertTrue(entriesAfterThirdUpdate.contains(PASSWORD_ENTRY_1_UPDATED))
+        assertTrue(entriesAfterThirdUpdate.contains(PASSWORD_ENTRY_2_UPDATED))
+        assertTrue(entriesAfterThirdUpdate.contains(PASSWORD_ENTRY_3_UPDATED))
     }
 
+    /*
     @Test
     public void should_delete_existent_entry_if_alone() {
         // When
