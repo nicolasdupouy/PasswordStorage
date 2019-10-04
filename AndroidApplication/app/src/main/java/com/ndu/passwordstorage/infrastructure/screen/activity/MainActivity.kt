@@ -14,6 +14,8 @@ import com.ndu.passwordstorage.databinding.ActivityMainBinding
 import com.ndu.passwordstorage.domain.PasswordEntry
 import com.ndu.passwordstorage.infrastructure.screen.adapter.ListEntryAdapter
 import androidx.databinding.DataBindingUtil.setContentView
+import com.ndu.passwordstorage.domain.dao.PasswordDao
+import com.ndu.passwordstorage.application.utils.Injector
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -21,17 +23,12 @@ import kotlinx.android.synthetic.main.content_main.*
 class MainActivity : AppCompatActivity() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-
-    private val draftDataSet = listOf(
-        PasswordEntry(1, "Site 1", "login 1", "password 1"),
-        PasswordEntry(2, "Site 2", "login 2", "password 2"),
-        PasswordEntry(3, "Site 3", "login 3", "password 3"),
-        PasswordEntry(4, "Site 4", "login 4", "password 4"),
-        PasswordEntry(5, "Site 5", "login 5", "password 5"))
+    private lateinit var passwordDao: PasswordDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        passwordDao = Injector.getPasswordDao(applicationContext)
 
         fillStorageList()
         setSupportActionBar(toolbar)
@@ -41,7 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun fillStorageList() {
         viewManager = LinearLayoutManager(this)
-        viewAdapter = ListEntryAdapter(draftDataSet)
+        viewAdapter = ListEntryAdapter(passwordDao.selectAll())
 
         storage_list.apply {
             // use this setting to improve performance if you know that changes

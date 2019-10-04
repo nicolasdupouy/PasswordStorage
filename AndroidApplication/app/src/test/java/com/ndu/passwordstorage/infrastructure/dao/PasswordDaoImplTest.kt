@@ -1,7 +1,7 @@
 package com.ndu.passwordstorage.domain.dao
 
 import com.ndu.passwordstorage.domain.PasswordEntry
-import com.ndu.passwordstorage.infrastructure.dao.PasswordDaoImpl
+import com.ndu.passwordstorage.application.utils.Injector
 import org.hamcrest.core.Is.`is`
 import org.junit.Assert.*
 import org.junit.Before
@@ -13,7 +13,7 @@ import org.robolectric.RuntimeEnvironment
 @RunWith(RobolectricTestRunner::class)
 class PasswordDaoImplTest {
 
-    private lateinit var passwordDao: PasswordDaoImpl
+    private lateinit var passwordDao: PasswordDao
 
     companion object {
         val PASSWORD_ENTRY_1 = PasswordEntry(1, "site_1","login_1", "password_1")
@@ -28,7 +28,7 @@ class PasswordDaoImplTest {
     @Before
     fun setUp() {
         // Given
-        passwordDao = PasswordDaoImpl(RuntimeEnvironment.application)
+        passwordDao = Injector.getPasswordDao(RuntimeEnvironment.application)
     }
 
     @Test
