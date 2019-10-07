@@ -56,4 +56,8 @@ class ListEntryAdapter(private val mainActivity: MainActivity, private val entry
     }
 
     override fun getItemCount(): Int = entryList.size
+
+    fun getItem(position: Int): PasswordEntry {
+        return entryList[position]
+    }
 }
