@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ndu.passwordstorage.R
@@ -81,6 +82,29 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, "displayMemo for position n°${position}", Toast.LENGTH_SHORT).show()
     }
 
+    fun displayAlert(entryItem: PasswordEntry) {
+        val items = arrayOf<CharSequence>("delete", "show password")
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Choose an action")
+        builder.setItems(items) { dialog, item ->
+            when (item) {
+                0 -> deleteMemo(entryItem)
+                1 -> showPassword(entryItem)
+                else -> Toast.makeText(this, "Entry not found item = ${item}", Toast.LENGTH_SHORT).show()
+            }
+        }
+        val alert = builder.create()
+        alert.show()
+    }
+
+    private fun deleteMemo(passwordEntry: PasswordEntry) {
+        Toast.makeText(this, "DeleteMemo ${passwordEntry}", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showPassword(passwordEntry: PasswordEntry) {
+        Toast.makeText(this, "ShowPassword ${passwordEntry}", Toast.LENGTH_SHORT).show()
+    }
 
     // Action Bar
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
