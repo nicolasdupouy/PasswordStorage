@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Password Storage</string>
+    <string name="title_activity_memo">MemoActivity</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="site">Site</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="options">options</string>
+
+    <string name="cancel">Cancel</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+</resources>
