@@ -111,6 +111,7 @@ class MainActivity : AppCompatActivity() {
                 1 -> showPassword(entryItem)
                 else -> Toast.makeText(this, "Entry not found item = ${item}", Toast.LENGTH_SHORT).show()
             }
+            updateEntryList()
         }
         val alert = builder.create()
         alert.show()
@@ -118,6 +119,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun deleteMemo(passwordEntry: PasswordEntry) {
         Toast.makeText(this, "DeleteMemo ${passwordEntry}", Toast.LENGTH_SHORT).show()
+        passwordDao.delete(passwordEntry)
     }
 
     private fun showPassword(passwordEntry: PasswordEntry) {
