@@ -8,6 +8,6 @@ fun Intent.writePasswordEntry(passwordEntry: PasswordEntry) {
     putExtra(MemoActivity.EXCHANGE_DATA, passwordEntry)
 }
 
-fun Intent.readPasswordEntry(): PasswordEntry {
+fun Intent.readPasswordEntry(): PasswordEntry? {
     return getParcelableExtra(MemoActivity.EXCHANGE_DATA)
 }

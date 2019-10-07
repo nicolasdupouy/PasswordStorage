@@ -73,15 +73,17 @@ class MainActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             data?.let {
                 val pe = data.readPasswordEntry()
-                Toast.makeText(applicationContext, pe.toString(), Toast.LENGTH_LONG).show()
+                pe?.let {
+                    Toast.makeText(applicationContext, pe.toString(), Toast.LENGTH_LONG).show()
 
-                when(requestCode) {
-                    MemoActivity.CREATE_MEMO -> passwordDao.insert(pe)
-                    MemoActivity.DISPLAY_MEMO -> passwordDao.update(pe)
-                    else -> false
+                    when(requestCode) {
+                        MemoActivity.CREATE_MEMO -> passwordDao.insert(pe)
+                        MemoActivity.DISPLAY_MEMO -> passwordDao.update(pe)
+                        else -> false
+                    }
+                    updateEntryList()
                 }
             }
-            updateEntryList()
         }
 
         super.onActivityResult(requestCode, resultCode, data)

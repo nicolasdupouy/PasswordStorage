@@ -52,11 +52,6 @@ class MainActivityTest {
     }
 
     @Test
-    fun should_fail_to_add_existant_entry() {
-
-    }
-
-    @Test
     fun should_update_entry() {
         checkEntryDoesNotExist(NON_EXISTENT_PASSWORD_ENTRY)
 
