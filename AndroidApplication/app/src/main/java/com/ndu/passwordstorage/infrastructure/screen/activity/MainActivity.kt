@@ -79,7 +79,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun displayMemo(position: Int) {
-        Toast.makeText(applicationContext, "displayMemo for position n°${position}", Toast.LENGTH_SHORT).show()
+        val memoActivityIntent = Intent(this, MemoActivity::class.java)
+
+        val passwordEntries = passwordDao.selectAll()
+        val passwordEntry = passwordEntries.get(position)
+        memoActivityIntent.putExtra(MemoActivity.EXCHANGE_DATA, passwordEntry)
+        startActivityForResult(memoActivityIntent, MemoActivity.DISPLAY_MEMO)
     }
 
     fun displayAlert(entryItem: PasswordEntry) {

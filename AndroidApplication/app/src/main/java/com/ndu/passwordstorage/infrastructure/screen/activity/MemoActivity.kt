@@ -28,6 +28,18 @@ class MemoActivity: AppCompatActivity() {
         site = binding.site
         login = binding.login
         password = binding.password
+
+        readInfos()
+    }
+
+    private fun readInfos() {
+        val i = this.intent
+        val passwordEntry = i.getParcelableExtra<PasswordEntry>(EXCHANGE_DATA)
+        passwordEntry?.let {
+            this.site.setText(passwordEntry.site, TextView.BufferType.EDITABLE)
+            this.login.setText(passwordEntry.login, TextView.BufferType.EDITABLE)
+            this.password.setText(passwordEntry.password, TextView.BufferType.EDITABLE)
+        }
     }
 
     fun cancel(view: View) {
