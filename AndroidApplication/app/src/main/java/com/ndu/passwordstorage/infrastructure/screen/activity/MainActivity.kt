@@ -21,6 +21,8 @@ import com.ndu.passwordstorage.infrastructure.screen.adapter.ListEntryAdapter
 import androidx.databinding.DataBindingUtil.setContentView
 import com.ndu.passwordstorage.domain.dao.PasswordDao
 import com.ndu.passwordstorage.application.utils.Injector
+import com.ndu.passwordstorage.infrastructure.screen.extention.readPasswordEntry
+import com.ndu.passwordstorage.infrastructure.screen.extention.writePasswordEntry
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -70,7 +72,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             data?.let {
-                val pe = data.getParcelableExtra<PasswordEntry>(MemoActivity.EXCHANGE_DATA)
+                val pe = data.readPasswordEntry()
                 Toast.makeText(applicationContext, pe.toString(), Toast.LENGTH_LONG).show()
 
                 when(requestCode) {
@@ -94,7 +96,7 @@ class MainActivity : AppCompatActivity() {
 
         val passwordEntries = passwordDao.selectAll()
         val passwordEntry = passwordEntries.get(position)
-        memoActivityIntent.putExtra(MemoActivity.EXCHANGE_DATA, passwordEntry)
+        memoActivityIntent.writePasswordEntry(passwordEntry)
         startActivityForResult(memoActivityIntent, MemoActivity.DISPLAY_MEMO)
     }
 

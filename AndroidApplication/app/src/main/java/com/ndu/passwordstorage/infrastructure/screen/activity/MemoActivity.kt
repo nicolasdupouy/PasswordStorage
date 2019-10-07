@@ -10,6 +10,8 @@ import androidx.databinding.DataBindingUtil
 import com.ndu.passwordstorage.R
 import com.ndu.passwordstorage.databinding.ActivityMemoBinding
 import com.ndu.passwordstorage.domain.PasswordEntry
+import com.ndu.passwordstorage.infrastructure.screen.extention.readPasswordEntry
+import com.ndu.passwordstorage.infrastructure.screen.extention.writePasswordEntry
 
 class MemoActivity: AppCompatActivity() {
     companion object {
@@ -34,7 +36,7 @@ class MemoActivity: AppCompatActivity() {
     }
 
     private fun readInfos() {
-        val passwordEntry = this.intent.getParcelableExtra<PasswordEntry>(EXCHANGE_DATA)
+        val passwordEntry = this.intent.readPasswordEntry()
         passwordEntry?.let {
             currentId = passwordEntry.id
             displayGivenEntry(passwordEntry)
@@ -53,7 +55,7 @@ class MemoActivity: AppCompatActivity() {
     }
 
     fun update(view: View) {
-        intent.putExtra(EXCHANGE_DATA, getCurrentVersion())
+        intent.writePasswordEntry(getCurrentVersion())
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
