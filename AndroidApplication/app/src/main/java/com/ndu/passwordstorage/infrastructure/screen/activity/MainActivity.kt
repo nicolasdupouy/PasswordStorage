@@ -3,9 +3,13 @@ package com.ndu.passwordstorage.infrastructure.screen.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.ContextMenu
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -38,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun fillStorageList() {
         viewManager = LinearLayoutManager(this)
-        viewAdapter = ListEntryAdapter(passwordDao.selectAll())
+        viewAdapter = ListEntryAdapter(this, passwordDao.selectAll())
 
         storage_list.apply {
             // use this setting to improve performance if you know that changes
@@ -73,7 +77,12 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    fun displayMemo(position: Int) {
+        Toast.makeText(applicationContext, "displayMemo for position n°${position}", Toast.LENGTH_SHORT).show()
+    }
 
+
+    // Action Bar
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
