@@ -18,6 +18,7 @@ class MemoActivity: AppCompatActivity() {
         const val EXCHANGE_DATA = "passwordEntry"
     }
 
+    private var currentId: Int = PasswordEntry.UNDEFINED_ID
     internal lateinit var site: EditText
     internal lateinit var login: EditText
     internal lateinit var password: EditText
@@ -33,13 +34,17 @@ class MemoActivity: AppCompatActivity() {
     }
 
     private fun readInfos() {
-        val i = this.intent
-        val passwordEntry = i.getParcelableExtra<PasswordEntry>(EXCHANGE_DATA)
+        val passwordEntry = this.intent.getParcelableExtra<PasswordEntry>(EXCHANGE_DATA)
         passwordEntry?.let {
-            this.site.setText(passwordEntry.site, TextView.BufferType.EDITABLE)
-            this.login.setText(passwordEntry.login, TextView.BufferType.EDITABLE)
-            this.password.setText(passwordEntry.password, TextView.BufferType.EDITABLE)
+            currentId = passwordEntry.id
+            displayGivenEntry(passwordEntry)
         }
+    }
+
+    private fun displayGivenEntry(passwordEntry: PasswordEntry) {
+        this.site.setText(passwordEntry.site, TextView.BufferType.EDITABLE)
+        this.login.setText(passwordEntry.login, TextView.BufferType.EDITABLE)
+        this.password.setText(passwordEntry.password, TextView.BufferType.EDITABLE)
     }
 
     fun cancel(view: View) {
@@ -48,10 +53,18 @@ class MemoActivity: AppCompatActivity() {
     }
 
     fun update(view: View) {
-        val formDatas = getFormDatas()
-        intent.putExtra(EXCHANGE_DATA, PasswordEntry(formDatas))
+        intent.putExtra(EXCHANGE_DATA, getCurrentVersion())
         setResult(Activity.RESULT_OK, intent)
         finish()
+    }
+
+    private fun getCurrentVersion(): PasswordEntry {
+        val formDatas = getFormDatas()
+        if (currentId != PasswordEntry.UNDEFINED_ID) {
+            return PasswordEntry(currentId, formDatas.first, formDatas.second, formDatas.third)
+        } else {
+            return PasswordEntry(formDatas)
+        }
     }
 
     private fun getFormDatas(): Triple<String, String, String> {

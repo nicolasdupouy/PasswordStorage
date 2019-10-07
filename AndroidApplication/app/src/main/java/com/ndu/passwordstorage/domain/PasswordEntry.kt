@@ -10,6 +10,10 @@ data class PasswordEntry(
     var login: String,
     var password: String
 ): Parcelable {
-    constructor(t: Triple<String, String, String>): this(-1, t.first, t.second, t.third)
+    constructor(t: Triple<String, String, String>): this(UNDEFINED_ID, t.first, t.second, t.third)
 
+    companion object {
+        const val UNDEFINED_ID = -1
+    }
 }
+

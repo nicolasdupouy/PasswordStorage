@@ -72,10 +72,21 @@ class MainActivity : AppCompatActivity() {
             data?.let {
                 val pe = data.getParcelableExtra<PasswordEntry>(MemoActivity.EXCHANGE_DATA)
                 Toast.makeText(applicationContext, pe.toString(), Toast.LENGTH_LONG).show()
+
+                when(requestCode) {
+                    MemoActivity.CREATE_MEMO -> passwordDao.insert(pe)
+                    MemoActivity.DISPLAY_MEMO -> passwordDao.update(pe)
+                    else -> false
+                }
             }
+            updateEntryList()
         }
 
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun updateEntryList() {
+        // TO DO
     }
 
     fun displayMemo(position: Int) {
