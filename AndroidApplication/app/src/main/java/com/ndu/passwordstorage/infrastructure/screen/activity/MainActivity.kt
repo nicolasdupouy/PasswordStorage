@@ -3,13 +3,9 @@ package com.ndu.passwordstorage.infrastructure.screen.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.ContextMenu
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +16,7 @@ import com.ndu.passwordstorage.domain.PasswordEntry
 import com.ndu.passwordstorage.infrastructure.screen.adapter.ListEntryAdapter
 import androidx.databinding.DataBindingUtil.setContentView
 import com.ndu.passwordstorage.domain.dao.PasswordDao
-import com.ndu.passwordstorage.application.utils.Injector
+import com.ndu.passwordstorage.application.utils.ConcreteCreator
 import com.ndu.passwordstorage.infrastructure.screen.extention.readPasswordEntry
 import com.ndu.passwordstorage.infrastructure.screen.extention.writePasswordEntry
 
@@ -35,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-        passwordDao = Injector.getPasswordDao(applicationContext)
+        passwordDao = ConcreteCreator.getPasswordDao(applicationContext)
 
         fillStorageList()
         setSupportActionBar(toolbar)

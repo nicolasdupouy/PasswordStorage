@@ -1,7 +1,7 @@
 package com.ndu.passwordstorage.domain.dao
 
 import com.ndu.passwordstorage.domain.PasswordEntry
-import com.ndu.passwordstorage.application.utils.Injector
+import com.ndu.passwordstorage.application.utils.ConcreteCreator
 import org.hamcrest.core.Is.`is`
 import org.junit.Assert.*
 import org.junit.Before
@@ -28,7 +28,7 @@ class PasswordDaoImplTest {
     @Before
     fun setUp() {
         // Given
-        passwordDao = Injector.getPasswordDao(RuntimeEnvironment.application)
+        passwordDao = ConcreteCreator.getPasswordDao(RuntimeEnvironment.application)
     }
 
     @Test
