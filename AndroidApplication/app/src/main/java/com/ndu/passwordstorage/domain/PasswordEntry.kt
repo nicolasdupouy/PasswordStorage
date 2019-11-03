@@ -4,6 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+//@Entity(tableName = "entry")
 data class PasswordEntry(
     val id: Int,
     var site: String,

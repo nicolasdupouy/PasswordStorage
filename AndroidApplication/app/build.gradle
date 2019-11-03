@@ -40,6 +40,10 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
+    // Persistence
+    implementation 'androidx.room:room-runtime:2.1.0'
+    implementation 'androidx.room:room-ktx:2.1.0'
+
     // Testing dependencies
     // - Required for unit tests
     testImplementation 'junit:junit:4.12'
